@@ -63,6 +63,10 @@ class Board(object):
         for _ in range(F.init_board_blocks):
             self.spawn_block()
 
+        # add the star
+        if F.if_star:
+            self.add_to_board(F.star_pos, 1)
+
     def update_board(self, action = "up"):
         # 0. bak the old one
         new_board = [r[:] for r in self.board]
@@ -137,7 +141,10 @@ class Board(object):
     def move_block_to_direction(b,i,j,direction):
         assert 0 <= i < F.map_rows
         assert 0 <= j < F.map_rows
-        if b[i][j] == 0:
+    
+        if F.if_star and (i,j) == F.star_pos:
+            return 0
+        elif b[i][j] == 0:
             return 0
         else:
             if direction == 'up' and b[i-1][j] == 0:
@@ -160,33 +167,37 @@ class Board(object):
                 return 0 
 
     @staticmethod
-    def combine_blocks(b,action = 'up'):
+    def combine_blocks(b, action = 'up'):
         m = F.map_rows
         n = F.map_cols
         if action == 'up':
             for i in range(1,m):
                 for j in range(n):
                     if Board.if_block_mergable(b[i][j],b[i-1][j]):
-                        b[i-1][j] += b[i][j]
-                        b[i][j] = 0
+                        #b[i-1][j] += b[i][j]
+                        #b[i][j] = 0
+                        Board.merge_block(b, (i,j), (i-1,j) )
         elif action == 'down':
             for i in reversed(range(m-1)):
                 for j in range(n):
                     if Board.if_block_mergable(b[i][j],b[i+1][j]):
-                        b[i+1][j] += b[i][j]
-                        b[i][j] = 0                    
+                        #b[i+1][j] += b[i][j]
+                        #b[i][j] = 0                    
+                        Board.merge_block(b, (i,j), (i+1,j) )
         elif action == 'right':
             for i in range(m):
                 for j in reversed(range(n-1)):
                     if Board.if_block_mergable(b[i][j],b[i][j+1]):
-                        b[i][j+1] += b[i][j]
-                        b[i][j] = 0                    
+                        #b[i][j+1] += b[i][j]
+                        #b[i][j] = 0
+                        Board.merge_block(b, (i,j), (i,j+1) )
         elif action == 'left':
             for i in range(m):
                 for j in range(1,n):
                     if Board.if_block_mergable(b[i][j],b[i][j-1]):
-                        b[i][j-1] += b[i][j]
-                        b[i][j] = 0
+                        #b[i][j-1] += b[i][j]
+                        #b[i][j] = 0
+                        Board.merge_block(b, (i,j), (i,j-1) )                        
         else:
             raise Exception("WTF is this action: %s" % str(action))
 
@@ -194,10 +205,23 @@ class Board(object):
 
     @staticmethod
     def if_block_mergable(a,b):
+        '''
+        a: from
+        b: to
+        '''
         if a == b:
             return True
         else:
             return False
+
+    @staticmethod
+    def merge_block(b, from_pos, to_pos):
+        if F.if_star and from_pos == F.star_pos:
+            return 0
+        else:
+            b[to_pos[0]][to_pos[1]] += b[from_pos[0]][from_pos[1]]
+            b[from_pos[0]][from_pos[1]] = 0
+            return 1
 
     def add_to_board(self, pos, obj_type):
         self.board[pos[0]][pos[1]] = obj_type

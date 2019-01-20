@@ -32,7 +32,7 @@ DISPLAYSUR = pygame.display.set_mode((F.map_rows*F.tile_size,
 
 # setup a font for displaying inventory numbers
 INVFONT = pygame.font.Font('freesansbold.ttf', 43)
-INVFONT_GG = pygame.font.Font('freesansbold.ttf', 100)
+INVFONT_GG = pygame.font.Font('freesansbold.ttf', 66)
 
 
 while True:
@@ -75,7 +75,7 @@ while True:
 
     # render gg information
     if board.if_gg:
-        text_obj_gg = INVFONT_GG.render("Game\nOver", True, F.white, F.black)
+        text_obj_gg = INVFONT_GG.render("Game Over", True, F.white, F.black)
         DISPLAYSUR.blit(text_obj_gg,(10, round(F.map_rows/2) *F.tile_size))
         print("Game Over displayed!!!")
         pygame.display.update()
