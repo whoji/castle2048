@@ -39,7 +39,8 @@ class Board(object):
         self.prev_board = []
         self.prev_action = None
         self.total_moves = 0
-
+        self.if_need_to_check_gg = False
+        self.if_gg = False
 
         self.init_board()
 
@@ -80,16 +81,24 @@ class Board(object):
         # 3. check if really updated. if yes update
         if self.check_if_same_board(new_board, self.board):
             return 0
-        else:
-            # 4. spawn another block
-              #print("to spawn")
-            self.total_moves += 1
-            self.prev_action = action
-            self.prev_board = self.board
-            self.board = new_board
-            #print("before spawn "+str(self))
-            self.spawn_block()            
-            return 1
+
+        # 4. spawn another block
+          #print("to spawn")
+        self.total_moves += 1
+        self.prev_action = action
+        self.prev_board = self.board
+        self.board = new_board
+        #print("before spawn "+str(self))
+        self.spawn_block()
+
+        # 5. check GG condition
+        if self.if_need_to_check_gg:
+            if self.check_gg():
+                self.if_gg = True
+            else:
+                self.if_need_to_check_gg = False
+
+        return 1
 
     @staticmethod
     def check_if_same_board(b1, b2):
@@ -199,6 +208,8 @@ class Board(object):
     def spawn_block(self):
         valid_pos_candidates = self.get_valid_spawn_pos()
         #print(valid_pos_candidates)
+        if len(valid_pos_candidates):
+            self.if_need_to_check_gg = True
         spawn_pos = random.choice(valid_pos_candidates)
         spawn_type = random.choice([1,2])
         self.add_to_board(spawn_pos, spawn_type)
@@ -210,3 +221,14 @@ class Board(object):
         return [(i,j) for i in range(m) for j in range(n) 
             if self.board[i][j] == 0 and (i == 0 or 
                 j == 0 or i == m-1 or j == n-1)]
+
+    def check_gg(self):
+        temp_board = [row[:] for row in self.board]
+        for action in ['up','down','left','right']:
+            Board.move_all_to_direction(temp_board, action)
+            Board.combine_blocks(temp_board, action)
+            if not Board.check_if_same_board(self.board, temp_board):
+                return False
+        return True
+
+

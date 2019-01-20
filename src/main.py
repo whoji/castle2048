@@ -32,6 +32,8 @@ DISPLAYSUR = pygame.display.set_mode((F.map_rows*F.tile_size,
 
 # setup a font for displaying inventory numbers
 INVFONT = pygame.font.Font('freesansbold.ttf', 43)
+INVFONT_GG = pygame.font.Font('freesansbold.ttf', 100)
+
 
 while True:
     DISPLAYSUR.fill(F.black)
@@ -64,17 +66,22 @@ while True:
                 DISPLAYSUR.blit(board.textures[board.board[row][col]],
                     (col*F.tile_size, row*F.tile_size))
 
-    # rend the text
+    # render the text
     for row in range(F.map_cols):
         for col in range(F.map_rows):
             if board.board[row][col]:
                 text_obj = INVFONT.render(str(board.board[row][col]), True, F.white, F.black)
                 DISPLAYSUR.blit(text_obj,(col*F.tile_size, row*F.tile_size))
 
+    # render gg information
+    if board.if_gg:
+        text_obj_gg = INVFONT_GG.render("Game\nOver", True, F.white, F.black)
+        DISPLAYSUR.blit(text_obj_gg,(10, round(F.map_rows/2) *F.tile_size))
+        print("Game Over displayed!!!")
+        pygame.display.update()
+        pygame.time.wait(5000)
+        board.if_gg = False
 
-    # optional render the cards
-    # DISPLAYSUR.blit(enemy.img, (enemy.pos[1]* F.tile_size, 
-    #     enemy.pos[0]*F.tile_size))
     pygame.display.update()
 
 
