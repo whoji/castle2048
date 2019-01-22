@@ -14,7 +14,7 @@ class Board(object):
         # BRICK: pygame.image.load(F.proj_path + 'asset/brick.png'),
         # DIAMOND: pygame.image.load(F.proj_path + 'asset/diamond.png'),
         # FIRE: pygame.image.load(F.proj_path + 'asset/fire.png'),
-        #0 : pygame.image.load(F.proj_path + 'asset/water.png'),
+        -1 : pygame.image.load(F.proj_path + 'asset/water.png'),
         1 : pygame.image.load(F.proj_path + 'asset/brick.png'),
         2 : pygame.image.load(F.proj_path + 'asset/diamond.png'),
         4 : pygame.image.load(F.proj_path + 'asset/fire.png'),

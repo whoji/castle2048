@@ -6,8 +6,8 @@ class Flags(object):
 
     def __init__(self):
         self.tile_size = 100
-        self.map_rows = 5
-        self.map_cols = 5
+        self.map_rows = 3
+        self.map_cols = 3
         self.proj_path = '/home/whoji/Desktop/ILC_2019/2048/'
 
         self.black = (0,0,0)
