@@ -40,7 +40,9 @@ class Board(object):
         self.prev_action = None
         self.total_moves = 0
         self.if_need_to_check_gg = False
+        self.if_need_to_check_win = True
         self.if_gg = False
+        self.if_win = False
 
         self.init_board()
 
@@ -101,6 +103,12 @@ class Board(object):
                 self.if_gg = True
             else:
                 self.if_need_to_check_gg = False
+
+        # 6. check win condition
+        if self.if_need_to_check_win:
+            if self.check_win_condition():
+                self.if_win = True
+                self.if_need_to_check_win = False
 
         return 1
 
@@ -254,5 +262,12 @@ class Board(object):
             if not Board.check_if_same_board(self.board, temp_board):
                 return False
         return True
+
+    def check_win_condition(self):
+        for r in self.board:
+            if F.win_condition_block in r:
+                return True
+        return False
+
 
 
