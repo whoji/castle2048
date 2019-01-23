@@ -7,6 +7,7 @@ from pygame.locals import *
 from board import Board
 from flags import F
 from controller import Controller
+from ui import StatusBar
 
 def eventkey_to_action(eventkey):
     action = None
@@ -25,13 +26,12 @@ def eventkey_to_action(eventkey):
 
 pygame.init()
 
-
 board = Board()
 
+status_bar = StatusBar()
 
-# add 50 pixels to the height for the inventory
 DISPLAYSUR = pygame.display.set_mode((F.map_rows*F.tile_size, 
-    F.map_cols*F.tile_size + 50))
+    F.map_cols*F.tile_size + F.status_bar_size))
 
 controller = Controller(DISPLAYSUR)
 
@@ -57,6 +57,9 @@ while True:
     elif controller.game_status == 5:
         board = Board()
         controller.game_status = 2
+        status_bar.board = board
+        status_bar.update_status()
+        #status_bar.controller = controller
         continue
 
     # playing the game (at board view)
@@ -73,6 +76,7 @@ while True:
                 if if_moved:
                     print("board updated !!")
                     print(board)
+                    status_bar.update_status()
 
                 if event.key == pygame.K_ESCAPE or event.unicode == 'q':
                     controller.quit_game()
@@ -110,8 +114,12 @@ while True:
                 text_obj = INVFONT.render(str(board.board[row][col]), True, F.white, F.black)
                 DISPLAYSUR.blit(text_obj,(col*F.tile_size, row*F.tile_size))
 
-    # render the HUD
+    # render the status bar
+    status_bar.render(DISPLAYSUR)
+
+    # render the pop up window (option menu / game over / etc)
     controller.render_pop_window()
+
 
     pygame.display.update()
 
