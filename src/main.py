@@ -85,6 +85,9 @@ while True:
 
         if board.if_gg:
             controller.lose_game()
+        elif board.if_win:
+            controller.win_game()
+            board.if_win = False
 
     else:
         pass
