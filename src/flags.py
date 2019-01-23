@@ -12,6 +12,8 @@ class Flags(object):
         self.map_cols = 3
         self.proj_path = '/home/whoji/Desktop/ILC_2019/2048/'
 
+        self.status_bar_size = 100
+
         self.black = (0,0,0)
         self.white = (255,255,255)
         self.red = (255,0,0)
