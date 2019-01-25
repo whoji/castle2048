@@ -11,6 +11,8 @@ class StatusBar(object):
         self.top_score = 0
         self.cur_score = 0
         self.moves = 0
+        self.pos = (0, F.window_h - F.status_bar_size)
+        self.size = (F.window_w, F.status_bar_size)
 
     def update_status(self):
         self.moves = self.board.total_moves
@@ -20,19 +22,31 @@ class StatusBar(object):
 
     def render(self, DISPLAYSUR):    
         bg = pygame.image.load(F.option_bg_img_path)
-        bg = pygame.transform.scale(bg, 
-            (F.tile_size*F.map_cols, F.status_bar_size))
+        bg = pygame.transform.scale(bg, self.size)
 
         INVFONT = pygame.font.Font('freesansbold.ttf', 15)
         text_obj_0 = INVFONT.render("moves:%d score:%d top:%d " % 
             (self.moves, self.cur_score, self.top_score), 
             True, F.white, F.black) 
 
-        DISPLAYSUR.blit(bg,(10, F.map_rows*F.tile_size+1))
-        DISPLAYSUR.blit(text_obj_0,(10, F.map_rows*F.tile_size+1))
+        DISPLAYSUR.blit(bg,self.pos)
+        DISPLAYSUR.blit(text_obj_0, self.apply_offset(self.pos, F.text_offset))
+
+
         #pygame.display.update()
 
     @staticmethod
     def get_board_total_sum(b):
         ret = sum([sum(r) for r in b])
         return ret
+
+    @staticmethod
+    def apply_offset(pos,offset):
+        return (pos[0]+offset[0], pos[1]+offset[1])
+
+    def __draw_text_center():
+        raise NotImplementedError
+        # font = pygame.font.Font(None, 25)
+        # text = font.render("You win!", True, BLACK)
+        # text_rect = text.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
+        # screen.blit(text, text_rect)

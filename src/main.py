@@ -30,8 +30,11 @@ board = Board()
 
 status_bar = StatusBar()
 
-DISPLAYSUR = pygame.display.set_mode((F.map_rows*F.tile_size, 
-    F.map_cols*F.tile_size + F.status_bar_size))
+#DISPLAYSUR = pygame.display.set_mode((F.map_rows*F.tile_size, 
+#    F.map_cols*F.tile_size + F.status_bar_size))
+
+DISPLAYSUR = pygame.display.set_mode((F.window_w, F.window_h))
+
 
 controller = Controller(DISPLAYSUR)
 
@@ -105,14 +108,16 @@ while True:
         for col in range(F.map_rows):
             if board.board[row][col]:
                 DISPLAYSUR.blit(board.textures[board.board[row][col]],
-                    (col*F.tile_size, row*F.tile_size))
+                    (col*F.tile_size+F.board_offset_x, row*F.tile_size+
+                        F.board_offset_y))
 
     # render the text
     for row in range(F.map_cols):
         for col in range(F.map_rows):
             if board.board[row][col]:
                 text_obj = INVFONT.render(str(board.board[row][col]), True, F.white, F.black)
-                DISPLAYSUR.blit(text_obj,(col*F.tile_size, row*F.tile_size))
+                DISPLAYSUR.blit(text_obj,(col*F.tile_size+F.board_offset_x, 
+                    row*F.tile_size+F.board_offset_y))
 
     # render the status bar
     status_bar.render(DISPLAYSUR)

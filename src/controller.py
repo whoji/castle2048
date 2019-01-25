@@ -58,11 +58,12 @@ class Controller(object):
         #pass
         INVFONT = pygame.font.Font('freesansbold.ttf', 20)
         text_obj_0 = INVFONT.render("GAME OVER: press enter to continue.", True, 
-            F.white, F.black) 
+            F.white, F.black)
         text_obj_1 = INVFONT.render("GAME OVER: press q/esc to quit.", True, 
-            F.white, F.black)         
-        self.DISPLAYSUR.blit(text_obj_0,(0, 0))
-        self.DISPLAYSUR.blit(text_obj_1,(0, 50))
+            F.white, F.black)
+        pygame.draw.rect(self.DISPLAYSUR, F.yellow, F.menu_rect)
+        self.DISPLAYSUR.blit(text_obj_0,(F.menu_rect[0]+10, F.menu_rect[1]+20))
+        self.DISPLAYSUR.blit(text_obj_1,(F.menu_rect[0]+10, F.menu_rect[1]+70))
         pygame.display.update()
 
         for event in pygame.event.get():
@@ -84,9 +85,10 @@ class Controller(object):
         text_obj_0 = INVFONT.render("press enter to continue.", True, 
             F.white, F.black) 
         text_obj_1 = INVFONT.render("press q/esc to quit.", True, 
-            F.white, F.black)         
-        self.DISPLAYSUR.blit(text_obj_0,(0, 0))
-        self.DISPLAYSUR.blit(text_obj_1,(0, 50))
+            F.white, F.black)
+        pygame.draw.rect(self.DISPLAYSUR, F.red, F.menu_rect)
+        self.DISPLAYSUR.blit(text_obj_0,(F.menu_rect[0]+10, F.menu_rect[1]+20))
+        self.DISPLAYSUR.blit(text_obj_1,(F.menu_rect[0]+10, F.menu_rect[1]+70))
         pygame.display.update()
 
         for event in pygame.event.get():
@@ -112,9 +114,10 @@ class Controller(object):
         text_obj_1 = INVFONT.render("OPTION: press q/esc to quit.", True, 
             F.white, F.black)         
         
-        self.DISPLAYSUR.blit(option_menu_bg,(20, 20))
-        self.DISPLAYSUR.blit(text_obj_0,(20, 20))
-        self.DISPLAYSUR.blit(text_obj_1,(20, 50))
+        # self.DISPLAYSUR.blit(option_menu_bg,(20, 20))
+        pygame.draw.rect(self.DISPLAYSUR, F.green, F.menu_rect)
+        self.DISPLAYSUR.blit(text_obj_0,(F.menu_rect[0]+20, F.menu_rect[1]+20))
+        self.DISPLAYSUR.blit(text_obj_1,(F.menu_rect[0]+20, F.menu_rect[1]+50))
         pygame.display.update()
 
         for event in pygame.event.get():
@@ -139,9 +142,10 @@ class Controller(object):
         text_obj_1 = INVFONT.render("CONGRATULATIONS: press q/esc to quit.", True, 
             F.white, F.black)         
         
-        self.DISPLAYSUR.blit(menu_bg,(20, 20))
-        self.DISPLAYSUR.blit(text_obj_0,(20, 20))
-        self.DISPLAYSUR.blit(text_obj_1,(20, 50))
+        # self.DISPLAYSUR.blit(menu_bg,(20, 20))
+        pygame.draw.rect(self.DISPLAYSUR, F.blue, F.menu_rect)
+        self.DISPLAYSUR.blit(text_obj_0,(F.menu_rect[0]+20, F.menu_rect[1]+20))
+        self.DISPLAYSUR.blit(text_obj_1,(F.menu_rect[0]+20, F.menu_rect[1]+50))
         pygame.display.update()
 
         for event in pygame.event.get():

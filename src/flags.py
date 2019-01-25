@@ -5,20 +5,34 @@ class Flags(object):
     """docstring for Flags"""
 
     def __init__(self):
+        self.proj_path = '/home/whoji/Desktop/ILC_2019/2048/'
+        self.option_bg_img_path = self.proj_path + 'asset/water.png'
         self.debug_mod = True
 
+        self.window_w = 640
+        self.window_h = 480
         self.tile_size = 100
         self.map_rows = 3
         self.map_cols = 3
-        self.proj_path = '/home/whoji/Desktop/ILC_2019/2048/'
+        self.status_bar_size = 60
+        self.board_offset_x, self.board_offset_y = self.__calculate_board_offset()
+        self.text_offset_x = 10
+        self.text_offset_y = 10
+        self.text_offset = (10,10)
+        self.board_rect = (self.board_offset_x, self.board_offset_y,
+            self.map_cols*self.tile_size, self.map_rows*self.tile_size)
+        self.menu_rect = (self.board_offset_x-50, self.board_offset_y-50,
+            self.map_cols*self.tile_size+100, self.map_rows*self.tile_size+100)
+        self.center_x  = round(self.window_w / 2)
+        self.center_y  = round((self.window_h) / 2)
 
-        self.status_bar_size = 100
-
+        # colors
         self.black = (0,0,0)
         self.white = (255,255,255)
-        self.red = (255,0,0)
-
-        self.option_bg_img_path = self.proj_path + 'asset/water.png'
+        self.red = (250,50,50)
+        self.blue = (50,50,250)
+        self.green = (50, 200, 100)
+        self.yellow = (200,200,50)
 
         self.init_board_blocks = 2
 
@@ -43,6 +57,12 @@ class Flags(object):
                 ret = 256
 
         return ret
+
+    def __calculate_board_offset(self):
+        offset_x = round(self.window_w / 2 - self.map_cols * self.tile_size / 2)
+        offset_y = round((self.window_h - self.status_bar_size) / 2 - 
+            self.map_rows * self.tile_size / 2)
+        return offset_x, offset_y
 
 F = Flags()
 
