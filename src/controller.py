@@ -58,9 +58,9 @@ class Controller(object):
         #pass
         INVFONT = pygame.font.Font('freesansbold.ttf', 20)
         text_obj_0 = INVFONT.render("GAME OVER: press enter to continue.", True, 
-            F.white, F.black)
+            F.white, None)
         text_obj_1 = INVFONT.render("GAME OVER: press q/esc to quit.", True, 
-            F.white, F.black)
+            F.white, None)
         pygame.draw.rect(self.DISPLAYSUR, F.yellow, F.menu_rect)
         self.DISPLAYSUR.blit(text_obj_0,(F.menu_rect[0]+10, F.menu_rect[1]+20))
         self.DISPLAYSUR.blit(text_obj_1,(F.menu_rect[0]+10, F.menu_rect[1]+70))
@@ -82,10 +82,10 @@ class Controller(object):
         #self.game_status = 1
         #pass
         INVFONT = pygame.font.Font('freesansbold.ttf', 20)
-        text_obj_0 = INVFONT.render("press enter to continue.", True, 
-            F.white, F.black) 
-        text_obj_1 = INVFONT.render("press q/esc to quit.", True, 
-            F.white, F.black)
+        text_obj_0 = INVFONT.render("Press <ENTER> to continue.", True, 
+            F.white, None) 
+        text_obj_1 = INVFONT.render("Press <Q>/<Esc> to quit.", True, 
+            F.white, None)
         pygame.draw.rect(self.DISPLAYSUR, F.red, F.menu_rect)
         self.DISPLAYSUR.blit(text_obj_0,(F.menu_rect[0]+10, F.menu_rect[1]+20))
         self.DISPLAYSUR.blit(text_obj_1,(F.menu_rect[0]+10, F.menu_rect[1]+70))
@@ -110,9 +110,9 @@ class Controller(object):
 
         INVFONT = pygame.font.Font('freesansbold.ttf', 20)
         text_obj_0 = INVFONT.render("OPTION: press <F1> to continue.", True, 
-            F.white, F.black) 
+            F.white, None) 
         text_obj_1 = INVFONT.render("OPTION: press q/esc to quit.", True, 
-            F.white, F.black)         
+            F.white, None)         
         
         # self.DISPLAYSUR.blit(option_menu_bg,(20, 20))
         pygame.draw.rect(self.DISPLAYSUR, F.green, F.menu_rect)
@@ -140,9 +140,9 @@ class Controller(object):
         INVFONT = pygame.font.Font('freesansbold.ttf', 15)
         text_obj_0 = INvFONT.render("CONGRATULATIONS!! YOU WON !!")
         text_obj_1 = INVFONT.render("Press <ENTER> to continue the INF MODE.", True, 
-            F.white, F.black) 
+            F.white, None) 
         text_obj_2 = INVFONT.render("Press Q/ESC to quit the game.", True, 
-            F.white, F.black)         
+            F.white, None)         
 
         if milestone is not None:
             text_obj_0 = INvFONT.render("MILESTONE [%d] REACHED" % milestone)

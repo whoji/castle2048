@@ -44,7 +44,7 @@ INVFONT_GG = pygame.font.Font('freesansbold.ttf', 66)
 
 
 while True:
-    DISPLAYSUR.fill(F.black)
+    DISPLAYSUR.fill(F.grey2)
 
     # when the app started
     if controller.game_status == 0:
@@ -103,21 +103,40 @@ while True:
     # part 2. render everything
     # ===================================
 
+    # render the board bg
+    pygame.draw.rect(DISPLAYSUR, F.board_frame_color, F.board_outer_rect)
+    for row in range(F.map_cols):
+        for col in range(F.map_rows):
+            pygame.draw.rect(DISPLAYSUR, F.board_frame_color,
+                (col*F.tile_size+F.board_offset_x, row*F.tile_size+
+                    F.board_offset_y, F.tile_size, F.tile_size))
+            pygame.draw.rect(DISPLAYSUR, F.board_color,(
+                col*F.tile_size+F.board_offset_x+F.board_frame_px,
+                row*F.tile_size+F.board_offset_y+F.board_frame_px, 
+                F.tile_size-2*F.board_frame_px, 
+                F.tile_size-2*F.board_frame_px))
+    
+    pygame.draw.rect(DISPLAYSUR, F.star_tile_color,(
+            F.star_pos[1]*F.tile_size+F.board_offset_x-F.board_frame_px,
+            F.star_pos[0]*F.tile_size+F.board_offset_y-F.board_frame_px, 
+            F.tile_size+2*F.board_frame_px, 
+            F.tile_size+2*F.board_frame_px))
+
     # render the board
     for row in range(F.map_cols):
         for col in range(F.map_rows):
             if board.board[row][col]:
                 DISPLAYSUR.blit(board.textures[board.board[row][col]],
-                    (col*F.tile_size+F.board_offset_x, row*F.tile_size+
-                        F.board_offset_y))
+                    (col*F.tile_size+F.board_offset_x+F.board_frame_px, 
+                        row*F.tile_size+F.board_offset_y+F.board_frame_px))
 
     # render the text
     for row in range(F.map_cols):
         for col in range(F.map_rows):
             if board.board[row][col]:
                 text_obj = INVFONT.render(str(board.board[row][col]), True, F.white, F.black)
-                DISPLAYSUR.blit(text_obj,(col*F.tile_size+F.board_offset_x, 
-                    row*F.tile_size+F.board_offset_y))
+                DISPLAYSUR.blit(text_obj,(col*F.tile_size+F.board_offset_x+F.board_frame_px, 
+                    row*F.tile_size+F.board_offset_y+F.board_frame_px))
 
     # render the status bar
     status_bar.render(DISPLAYSUR)
