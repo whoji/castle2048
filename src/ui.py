@@ -13,25 +13,39 @@ class StatusBar(object):
         self.moves = 0
         self.pos = (0, F.window_h - F.status_bar_size)
         self.size = (F.window_w, F.status_bar_size)
+        if F.if_star:
+            self.star_score = 0
+            self.top_star_score = 0
+            self.milestone_str = ""
 
     def update_status(self):
         self.moves = self.board.total_moves
         self.cur_score = self.get_board_total_sum(self.board.board)
         if self.cur_score > self.top_score:
             self.top_score = self.cur_score
+        if F.if_star:
+            self.star_score = self.board.board[F.star_pos[0]][F.star_pos[1]]
+            if self.star_score > self.top_star_score:
+                self.top_star_score = self.star_score
 
     def render(self, DISPLAYSUR):    
         bg = pygame.image.load(F.option_bg_img_path)
         bg = pygame.transform.scale(bg, self.size)
 
         INVFONT = pygame.font.Font('freesansbold.ttf', 15)
-        text_obj_0 = INVFONT.render("moves:%d score:%d top:%d " % 
+        text_obj_0 = INVFONT.render("moves:[ %d ]     score:[%d]    top:[%d] " % 
             (self.moves, self.cur_score, self.top_score), 
             True, F.white, F.black) 
-
+ 
         DISPLAYSUR.blit(bg,self.pos)
         DISPLAYSUR.blit(text_obj_0, self.apply_offset(self.pos, F.text_offset))
 
+        if F.if_star:
+            self.milestone_str = '* '*  (F.milestone.index(self.star_score)+1)
+            text_obj_1 = INVFONT.render("castle:[ %d ]     top casle:[ %d ]    %s" % 
+                (self.star_score, self.top_star_score, self.milestone_str),
+                True, F.white, F.black)
+            DISPLAYSUR.blit(text_obj_1, self.apply_offset(self.pos, (10, 30) ))
 
         #pygame.display.update()
 

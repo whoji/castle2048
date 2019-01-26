@@ -34,7 +34,7 @@ class Controller(object):
         sys.exit()
 
     def reset_game(self):
-        self.big_print("(re-) Starting the game...")
+        self.big_print("(re-) Stshowarting the game...")
         self.game_status = 5
 
     def call_option(self):
@@ -131,16 +131,24 @@ class Controller(object):
             else:
                 pass
 
-    def show_game_finished(self):
+    def show_game_finished(self, milestone = None):
+        # This is game win screen. also screen for "milestone reached"
         menu_bg = pygame.image.load(F.option_bg_img_path)
         menu_bg = pygame.transform.scale(menu_bg, 
             (F.tile_size*F.map_rows-40, F.tile_size*F.map_cols-40))
 
         INVFONT = pygame.font.Font('freesansbold.ttf', 15)
-        text_obj_0 = INVFONT.render("DONE: press <ENTER> to cont infinity mod.", True, 
+        text_obj_0 = INvFONT.render("CONGRATULATIONS!! YOU WON !!")
+        text_obj_1 = INVFONT.render("Press <ENTER> to continue the INF MODE.", True, 
             F.white, F.black) 
-        text_obj_1 = INVFONT.render("CONGRATULATIONS: press q/esc to quit.", True, 
+        text_obj_2 = INVFONT.render("Press Q/ESC to quit the game.", True, 
             F.white, F.black)         
+
+        if milestone is not None:
+            text_obj_0 = INvFONT.render("MILESTONE [%d] REACHED" % milestone)
+            text_obj_1 = INVFONT.render("Press <ENTER> to continue.", True, 
+                F.white, F.black) 
+            text_obj_2 = INVFONT.render("", True, F.white, F.black) 
         
         # self.DISPLAYSUR.blit(menu_bg,(20, 20))
         pygame.draw.rect(self.DISPLAYSUR, F.blue, F.menu_rect)

@@ -9,11 +9,12 @@ class Flags(object):
         self.option_bg_img_path = self.proj_path + 'asset/water.png'
         self.debug_mod = True
 
-        self.window_w = 640
-        self.window_h = 480
+        # size and menu conf
+        self.window_w = 800
+        self.window_h = 600
         self.tile_size = 100
-        self.map_rows = 3
-        self.map_cols = 3
+        self.map_rows = 5
+        self.map_cols = 5
         self.status_bar_size = 60
         self.board_offset_x, self.board_offset_y = self.__calculate_board_offset()
         self.text_offset_x = 10
@@ -21,8 +22,8 @@ class Flags(object):
         self.text_offset = (10,10)
         self.board_rect = (self.board_offset_x, self.board_offset_y,
             self.map_cols*self.tile_size, self.map_rows*self.tile_size)
-        self.menu_rect = (self.board_offset_x-50, self.board_offset_y-50,
-            self.map_cols*self.tile_size+100, self.map_rows*self.tile_size+100)
+        self.menu_rect = (self.board_offset_x+50, self.board_offset_y+50,
+            self.map_cols*self.tile_size-100, self.map_rows*self.tile_size-100)
         self.center_x  = round(self.window_w / 2)
         self.center_y  = round((self.window_h) / 2)
 
@@ -36,10 +37,13 @@ class Flags(object):
 
         self.init_board_blocks = 2
 
-        self.if_star = False
+        # star 
+        self.if_star = True
         self.star_pos = (2,2)
 
         self.win_condition_block = self.__calculate_win_block()
+        self.milestone_mode = True
+        self.milestone = [2**i for i in range(16)]
 
         #self.__self_check():
 
