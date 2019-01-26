@@ -34,7 +34,7 @@ class Controller(object):
         sys.exit()
 
     def reset_game(self):
-        self.big_print("(re-) Starting the game...")
+        self.big_print("(re-) Stshowarting the game...")
         self.game_status = 5
 
     def call_option(self):
@@ -58,11 +58,12 @@ class Controller(object):
         #pass
         INVFONT = pygame.font.Font('freesansbold.ttf', 20)
         text_obj_0 = INVFONT.render("GAME OVER: press enter to continue.", True, 
-            F.white, F.black) 
+            F.white, None)
         text_obj_1 = INVFONT.render("GAME OVER: press q/esc to quit.", True, 
-            F.white, F.black)         
-        self.DISPLAYSUR.blit(text_obj_0,(0, 0))
-        self.DISPLAYSUR.blit(text_obj_1,(0, 50))
+            F.white, None)
+        pygame.draw.rect(self.DISPLAYSUR, F.yellow, F.menu_rect)
+        self.DISPLAYSUR.blit(text_obj_0,(F.menu_rect[0]+10, F.menu_rect[1]+20))
+        self.DISPLAYSUR.blit(text_obj_1,(F.menu_rect[0]+10, F.menu_rect[1]+70))
         pygame.display.update()
 
         for event in pygame.event.get():
@@ -81,12 +82,13 @@ class Controller(object):
         #self.game_status = 1
         #pass
         INVFONT = pygame.font.Font('freesansbold.ttf', 20)
-        text_obj_0 = INVFONT.render("press enter to continue.", True, 
-            F.white, F.black) 
-        text_obj_1 = INVFONT.render("press q/esc to quit.", True, 
-            F.white, F.black)         
-        self.DISPLAYSUR.blit(text_obj_0,(0, 0))
-        self.DISPLAYSUR.blit(text_obj_1,(0, 50))
+        text_obj_0 = INVFONT.render("Press <ENTER> to continue.", True, 
+            F.white, None) 
+        text_obj_1 = INVFONT.render("Press <Q>/<Esc> to quit.", True, 
+            F.white, None)
+        pygame.draw.rect(self.DISPLAYSUR, F.red, F.menu_rect)
+        self.DISPLAYSUR.blit(text_obj_0,(F.menu_rect[0]+10, F.menu_rect[1]+20))
+        self.DISPLAYSUR.blit(text_obj_1,(F.menu_rect[0]+10, F.menu_rect[1]+70))
         pygame.display.update()
 
         for event in pygame.event.get():
@@ -108,13 +110,14 @@ class Controller(object):
 
         INVFONT = pygame.font.Font('freesansbold.ttf', 20)
         text_obj_0 = INVFONT.render("OPTION: press <F1> to continue.", True, 
-            F.white, F.black) 
+            F.white, None) 
         text_obj_1 = INVFONT.render("OPTION: press q/esc to quit.", True, 
-            F.white, F.black)         
+            F.white, None)         
         
-        self.DISPLAYSUR.blit(option_menu_bg,(20, 20))
-        self.DISPLAYSUR.blit(text_obj_0,(20, 20))
-        self.DISPLAYSUR.blit(text_obj_1,(20, 50))
+        # self.DISPLAYSUR.blit(option_menu_bg,(20, 20))
+        pygame.draw.rect(self.DISPLAYSUR, F.green, F.menu_rect)
+        self.DISPLAYSUR.blit(text_obj_0,(F.menu_rect[0]+20, F.menu_rect[1]+20))
+        self.DISPLAYSUR.blit(text_obj_1,(F.menu_rect[0]+20, F.menu_rect[1]+50))
         pygame.display.update()
 
         for event in pygame.event.get():
@@ -128,20 +131,29 @@ class Controller(object):
             else:
                 pass
 
-    def show_game_finished(self):
+    def show_game_finished(self, milestone = None):
+        # This is game win screen. also screen for "milestone reached"
         menu_bg = pygame.image.load(F.option_bg_img_path)
         menu_bg = pygame.transform.scale(menu_bg, 
             (F.tile_size*F.map_rows-40, F.tile_size*F.map_cols-40))
 
         INVFONT = pygame.font.Font('freesansbold.ttf', 15)
-        text_obj_0 = INVFONT.render("DONE: press <ENTER> to cont infinity mod.", True, 
-            F.white, F.black) 
-        text_obj_1 = INVFONT.render("CONGRATULATIONS: press q/esc to quit.", True, 
-            F.white, F.black)         
+        text_obj_0 = INvFONT.render("CONGRATULATIONS!! YOU WON !!")
+        text_obj_1 = INVFONT.render("Press <ENTER> to continue the INF MODE.", True, 
+            F.white, None) 
+        text_obj_2 = INVFONT.render("Press Q/ESC to quit the game.", True, 
+            F.white, None)         
+
+        if milestone is not None:
+            text_obj_0 = INvFONT.render("MILESTONE [%d] REACHED" % milestone)
+            text_obj_1 = INVFONT.render("Press <ENTER> to continue.", True, 
+                F.white, F.black) 
+            text_obj_2 = INVFONT.render("", True, F.white, F.black) 
         
-        self.DISPLAYSUR.blit(menu_bg,(20, 20))
-        self.DISPLAYSUR.blit(text_obj_0,(20, 20))
-        self.DISPLAYSUR.blit(text_obj_1,(20, 50))
+        # self.DISPLAYSUR.blit(menu_bg,(20, 20))
+        pygame.draw.rect(self.DISPLAYSUR, F.blue, F.menu_rect)
+        self.DISPLAYSUR.blit(text_obj_0,(F.menu_rect[0]+20, F.menu_rect[1]+20))
+        self.DISPLAYSUR.blit(text_obj_1,(F.menu_rect[0]+20, F.menu_rect[1]+50))
         pygame.display.update()
 
         for event in pygame.event.get():

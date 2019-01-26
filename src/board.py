@@ -27,10 +27,13 @@ class Board(object):
         512 : pygame.image.load(F.proj_path + 'asset/bird1.png'),
         1024 : pygame.image.load(F.proj_path + 'asset/bird2.png'),
         2048 : pygame.image.load(F.proj_path + 'asset/bird3.png'),
-           
+        4096 : pygame.image.load(F.proj_path + 'asset/bird3.png'),
+        8192 : pygame.image.load(F.proj_path + 'asset/bird3.png'),
+        16384 : pygame.image.load(F.proj_path + 'asset/bird3.png'),           
+        32768 : pygame.image.load(F.proj_path + 'asset/bird3.png'),           
     }
 
-    """docstring for World"""
+    """docstring for Board"""
     def __init__(self):
         self.textures = Board.textures
         self.resize_texture()
@@ -54,7 +57,8 @@ class Board(object):
     def resize_texture(self):
         for k,v in self.textures.items():
             self.textures[k] = pygame.transform.scale(
-                self.textures[k], (F.tile_size, F.tile_size))
+                self.textures[k], (F.tile_size-2*F.board_frame_px, 
+                    F.tile_size-2*F.board_frame_px))
 
     def init_board(self):
         # initialize the map with all dirt
