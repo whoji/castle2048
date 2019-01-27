@@ -59,6 +59,10 @@ class Flags(object):
         self.milestone_mode = True
         self.milestone = [2**i for i in range(16)]
 
+        # block moving effect
+        self.if_movable = True
+        self.move_frame = 10 # frames to finish the move
+
         # run self check
         #self.__self_check():
 

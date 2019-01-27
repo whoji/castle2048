@@ -8,6 +8,7 @@ from board import Board
 from flags import F
 from controller import Controller
 from ui import StatusBar
+from mover import Mover
 
 def eventkey_to_action(eventkey):
     action = None
@@ -79,6 +80,7 @@ while True:
                 if if_moved:
                     print("board updated !!")
                     print(board)
+                    mover = Mover(board.prev_board, action)
                     status_bar.update_status()
 
                 if event.key == pygame.K_ESCAPE or event.unicode == 'q':
@@ -121,6 +123,27 @@ while True:
             F.star_pos[0]*F.tile_size+F.board_offset_y-F.board_frame_px, 
             F.tile_size+2*F.board_frame_px, 
             F.tile_size+2*F.board_frame_px))
+
+    # render the moving blocks
+    try:
+        mover
+    except NameError:
+        #print("mover is not defined!")
+        pass
+    else:
+        if mover.remain_moving_frames > 0:
+            mover.move_all()
+            for row in range(F.map_rows):
+                for col in range(F.map_cols):
+                    if mover.blocks[row][col]:
+                        #DISPLAYSUR.blit(board.textures[board.prev_board[row][col]],
+                        #    (mover.blocks[row][col].x*F.tile_size+F.board_offset_x+F.board_frame_px, 
+                        #        mover.blocks[row][col].y*F.tile_size+F.board_offset_y+F.board_frame_px))
+                        DISPLAYSUR.blit(board.textures[board.prev_board[row][col]],
+                            (mover.blocks[row][col].y*F.tile_size+F.board_offset_x+F.board_frame_px,
+                             mover.blocks[row][col].x*F.tile_size+F.board_offset_y+F.board_frame_px))
+            pygame.display.update()
+            continue
 
     # render the board
     for row in range(F.map_cols):

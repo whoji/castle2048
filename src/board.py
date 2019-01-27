@@ -48,6 +48,8 @@ class Board(object):
         self.if_win = False
 
         self.init_board()
+        print("init board:")
+        print(self)
 
     def __repr__(self):
         for r in self.board:
