@@ -81,6 +81,7 @@ while True:
                     print("board updated !!")
                     print(board)
                     mover = Mover(board.prev_board, action)
+                    controller.game_status = 21
                     status_bar.update_status()
 
                 if event.key == pygame.K_ESCAPE or event.unicode == 'q':
@@ -125,41 +126,39 @@ while True:
             F.tile_size+2*F.board_frame_px))
 
     # render the moving blocks
-    try:
-        mover
-    except NameError:
-        #print("mover is not defined!")
-        pass
-    else:
+    if controller.game_status == 21:
         if mover.remain_moving_frames > 0:
             mover.move_all()
             for row in range(F.map_rows):
                 for col in range(F.map_cols):
                     if mover.blocks[row][col]:
-                        #DISPLAYSUR.blit(board.textures[board.prev_board[row][col]],
-                        #    (mover.blocks[row][col].x*F.tile_size+F.board_offset_x+F.board_frame_px, 
-                        #        mover.blocks[row][col].y*F.tile_size+F.board_offset_y+F.board_frame_px))
-                        DISPLAYSUR.blit(board.textures[board.prev_board[row][col]],
-                            (mover.blocks[row][col].y*F.tile_size+F.board_offset_x+F.board_frame_px,
-                             mover.blocks[row][col].x*F.tile_size+F.board_offset_y+F.board_frame_px))
-            pygame.display.update()
-            continue
+                        # the tile background
+                        moving_tile_pos = (mover.blocks[row][col].y*F.tile_size+F.board_offset_x+F.board_frame_px,
+                             mover.blocks[row][col].x*F.tile_size+F.board_offset_y+F.board_frame_px)
+                        DISPLAYSUR.blit(board.textures[board.prev_board[row][col]], moving_tile_pos)
+                        # the text (number) 
+                        text_obj = INVFONT.render(str(board.prev_board[row][col]), True, F.white, F.black)
+                        DISPLAYSUR.blit(text_obj,moving_tile_pos)
+        else:
+            controller.game_status = 2
 
     # render the board
-    for row in range(F.map_cols):
-        for col in range(F.map_rows):
-            if board.board[row][col]:
-                DISPLAYSUR.blit(board.textures[board.board[row][col]],
-                    (col*F.tile_size+F.board_offset_x+F.board_frame_px, 
-                        row*F.tile_size+F.board_offset_y+F.board_frame_px))
+    if controller.game_status != 21:
+        for row in range(F.map_cols):
+            for col in range(F.map_rows):
+                if board.board[row][col]:
+                    DISPLAYSUR.blit(board.textures[board.board[row][col]],
+                        (col*F.tile_size+F.board_offset_x+F.board_frame_px, 
+                            row*F.tile_size+F.board_offset_y+F.board_frame_px))
 
     # render the text
-    for row in range(F.map_cols):
-        for col in range(F.map_rows):
-            if board.board[row][col]:
-                text_obj = INVFONT.render(str(board.board[row][col]), True, F.white, F.black)
-                DISPLAYSUR.blit(text_obj,(col*F.tile_size+F.board_offset_x+F.board_frame_px, 
-                    row*F.tile_size+F.board_offset_y+F.board_frame_px))
+    if controller.game_status != 21:
+        for row in range(F.map_cols):
+            for col in range(F.map_rows):
+                if board.board[row][col]:
+                    text_obj = INVFONT.render(str(board.board[row][col]), True, F.white, F.black)
+                    DISPLAYSUR.blit(text_obj,(col*F.tile_size+F.board_offset_x+F.board_frame_px, 
+                        row*F.tile_size+F.board_offset_y+F.board_frame_px))
 
     # render the status bar
     status_bar.render(DISPLAYSUR)

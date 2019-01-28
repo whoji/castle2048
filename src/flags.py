@@ -61,7 +61,7 @@ class Flags(object):
 
         # block moving effect
         self.if_movable = True
-        self.move_frame = 10 # frames to finish the move
+        self.move_frame = 20 # frames to finish the move
 
         # run self check
         #self.__self_check():

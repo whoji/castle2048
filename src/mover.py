@@ -56,7 +56,7 @@ class Mover(object):
         n = F.map_cols
         dest = [[0 for w in range(F.map_rows)] for h in range (F.map_cols)]
         if action == 'up':
-            for i in range(1,m):
+            for i in range(m):
                 for j in range(n):
                     dest_i, dest_j, if_disappear = self.get_block_destination(b,i,j,action)
                     if dest_i is None: continue
@@ -65,7 +65,7 @@ class Mover(object):
                     b[i][j] = 0
                     b[dest_i][dest_j] = v
         elif action == 'down':
-            for i in reversed(range(m-1)):
+            for i in reversed(range(m)):
                 for j in range(n):
                     dest_i, dest_j, if_disappear = self.get_block_destination(b,i,j,action)
                     if dest_i is None: continue
@@ -75,7 +75,7 @@ class Mover(object):
                     b[dest_i][dest_j] = v
         elif action == 'right':
             for i in range(m):
-                for j in reversed(range(n-1)):
+                for j in reversed(range(n)):
                     dest_i, dest_j, if_disappear = self.get_block_destination(b,i,j,action)
                     if dest_i is None: continue
                     dest[i][j] = Block(i,j,b[i][j],dest_i, dest_j, if_disappear)
@@ -84,7 +84,7 @@ class Mover(object):
                     b[dest_i][dest_j] = v
         elif action == 'left':
             for i in range(m):
-                for j in range(1,n):
+                for j in range(n):
                     dest_i, dest_j, if_disappear = self.get_block_destination(b,i,j,action)
                     if dest_i is None: continue                    
                     dest[i][j] = Block(i,j,b[i][j],dest_i, dest_j, if_disappear)

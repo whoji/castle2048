@@ -16,6 +16,7 @@ class Controller(object):
         1: 'main_menu',
         5: 'starting_board',
         2: 'playing',
+        21: 'blocks_moving',
         3: 'option',
         4: 'game_over',
         6: 'game_beat'
