@@ -19,6 +19,8 @@ class Flags(object):
         self.green = (50, 200, 100)
         self.yellow = (200,200,50)
         self.orange = (255, 153, 58)
+        self.block_text_fg = self.white
+        self.block_text_bg = None #self.black
 
         # size and pos conf (general and menu)
         self.window_w = 800
@@ -139,7 +141,15 @@ class Flags(object):
         for k,v in self.castle_textures.items():
             self.castle_textures[k] = pygame.transform.scale(
                 self.castle_textures[k], (self.tile_size-2*self.board_frame_px, 
-                    self.tile_size-2*self.board_frame_px))                
+                    self.tile_size-2*self.board_frame_px))
+
+    @staticmethod
+    def shorten_block_text(n):
+        if n > 1000000:
+            return str(int(n / 1000000))+"m" # e.g. 1048576 -> 1m
+        if n > 10000:
+            return str(int(n / 1000))+"k" # e.g. 16384 -> 16k
+        return str(n)
 
 F = Flags()
 

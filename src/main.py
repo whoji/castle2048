@@ -24,27 +24,23 @@ def eventkey_to_action(eventkey):
         print("bad event key!!")
     return action
 
-
+# Starting the game components
 pygame.init()
-
 board = Board()
-
 status_bar = StatusBar()
-
-#DISPLAYSUR = pygame.display.set_mode((F.map_rows*F.tile_size, 
-#    F.map_cols*F.tile_size + F.status_bar_size))
-
 DISPLAYSUR = pygame.display.set_mode((F.window_w, F.window_h))
-
-
 controller = Controller(DISPLAYSUR)
 
 # setup a font for displaying inventory numbers
-INVFONT = pygame.font.Font('freesansbold.ttf', 43)
-INVFONT_GG = pygame.font.Font('freesansbold.ttf', 66)
-
+GFONT = pygame.font.Font('freesansbold.ttf', 43)
+GFONT_GG = pygame.font.Font('freesansbold.ttf', 66)
 
 while True:
+
+    # ===================================
+    # part 1. Game flow control
+    # ===================================
+
     DISPLAYSUR.fill(F.grey2)
 
     # when the app started
@@ -139,8 +135,9 @@ while True:
                             DISPLAYSUR.blit(F.castle_textures[board.prev_board[row][col]], moving_tile_pos)
                         else:
                             DISPLAYSUR.blit(board.textures[board.prev_board[row][col]], moving_tile_pos)
-                        # the text (number) 
-                        text_obj = INVFONT.render(str(board.prev_board[row][col]), True, F.white, F.black)
+                        # the text (number)
+                        text_str = F.shorten_block_text(board.prev_board[row][col])
+                        text_obj = GFONT.render(text_str, True, F.block_text_fg, F.block_text_bg)
                         DISPLAYSUR.blit(text_obj,moving_tile_pos)
         else:
             controller.game_status = 2
@@ -164,7 +161,8 @@ while True:
         for row in range(F.map_cols):
             for col in range(F.map_rows):
                 if board.board[row][col]:
-                    text_obj = INVFONT.render(str(board.board[row][col]), True, F.white, F.black)
+                    text_str = F.shorten_block_text(board.board[row][col])
+                    text_obj = GFONT.render(text_str, True, F.block_text_fg, F.block_text_bg)
                     DISPLAYSUR.blit(text_obj,(col*F.tile_size+F.board_offset_x+F.board_frame_px, 
                         row*F.tile_size+F.board_offset_y+F.board_frame_px))
 
