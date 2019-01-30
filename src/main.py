@@ -130,12 +130,15 @@ while True:
         if mover.remain_moving_frames > 0:
             mover.move_all()
             for row in range(F.map_rows):
-                for col in range(F.map_cols):
+                for col in range(F.map_cols):                   
                     if mover.blocks[row][col]:
                         # the tile background
                         moving_tile_pos = (mover.blocks[row][col].y*F.tile_size+F.board_offset_x+F.board_frame_px,
                              mover.blocks[row][col].x*F.tile_size+F.board_offset_y+F.board_frame_px)
-                        DISPLAYSUR.blit(board.textures[board.prev_board[row][col]], moving_tile_pos)
+                        if (row, col) == F.star_pos:
+                            DISPLAYSUR.blit(F.castle_textures[board.prev_board[row][col]], moving_tile_pos)
+                        else:
+                            DISPLAYSUR.blit(board.textures[board.prev_board[row][col]], moving_tile_pos)
                         # the text (number) 
                         text_obj = INVFONT.render(str(board.prev_board[row][col]), True, F.white, F.black)
                         DISPLAYSUR.blit(text_obj,moving_tile_pos)
@@ -146,6 +149,11 @@ while True:
     if controller.game_status != 21:
         for row in range(F.map_cols):
             for col in range(F.map_rows):
+                if (row, col) == F.star_pos:
+                    DISPLAYSUR.blit(F.castle_textures[board.board[row][col]],
+                        (col*F.tile_size+F.board_offset_x+F.board_frame_px, 
+                            row*F.tile_size+F.board_offset_y+F.board_frame_px))
+                    continue
                 if board.board[row][col]:
                     DISPLAYSUR.blit(board.textures[board.board[row][col]],
                         (col*F.tile_size+F.board_offset_x+F.board_frame_px, 

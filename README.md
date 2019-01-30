@@ -28,6 +28,8 @@
 * implement the moving tiles                    [done at 1/27/2019]
 * add a license                                 [done at 1/27/2019]
 
+### Misc
+Some of the assets are from the `dungeon crawl 32x32 tiles` ([OGA link](http://opengameart.org/content/dungeon-crawl-32x32-tiles))
 
 ### Contact
 

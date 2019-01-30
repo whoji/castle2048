@@ -9,34 +9,9 @@ from flags import F
 
 class Board(object):
 
-    textures = {
-        # WATER: pygame.image.load(F.proj_path + 'asset/water.png'),
-        # BRICK: pygame.image.load(F.proj_path + 'asset/brick.png'),
-        # DIAMOND: pygame.image.load(F.proj_path + 'asset/diamond.png'),
-        # FIRE: pygame.image.load(F.proj_path + 'asset/fire.png'),
-        -1 : pygame.image.load(F.proj_path + 'asset/water.png'),
-        1 : pygame.image.load(F.proj_path + 'asset/brick.png'),
-        2 : pygame.image.load(F.proj_path + 'asset/diamond.png'),
-        4 : pygame.image.load(F.proj_path + 'asset/fire.png'),
-        8 : pygame.image.load(F.proj_path + 'asset/grass.png'),
-        16 : pygame.image.load(F.proj_path + 'asset/coal.png'),
-        32 : pygame.image.load(F.proj_path + 'asset/glass.png'),
-        64 : pygame.image.load(F.proj_path + 'asset/sand.png'),
-        128 : pygame.image.load(F.proj_path + 'asset/stone.png'),
-        256 : pygame.image.load(F.proj_path + 'asset/char.png'),
-        512 : pygame.image.load(F.proj_path + 'asset/bird1.png'),
-        1024 : pygame.image.load(F.proj_path + 'asset/bird2.png'),
-        2048 : pygame.image.load(F.proj_path + 'asset/bird3.png'),
-        4096 : pygame.image.load(F.proj_path + 'asset/bird3.png'),
-        8192 : pygame.image.load(F.proj_path + 'asset/bird3.png'),
-        16384 : pygame.image.load(F.proj_path + 'asset/bird3.png'),           
-        32768 : pygame.image.load(F.proj_path + 'asset/bird3.png'),           
-    }
-
     """docstring for Board"""
     def __init__(self):
-        self.textures = Board.textures
-        self.resize_texture()
+        self.textures = F.textures
 
         self.board =[]
         self.prev_board = []
@@ -55,12 +30,6 @@ class Board(object):
         for r in self.board:
             print(r)
         return ""
-
-    def resize_texture(self):
-        for k,v in self.textures.items():
-            self.textures[k] = pygame.transform.scale(
-                self.textures[k], (F.tile_size-2*F.board_frame_px, 
-                    F.tile_size-2*F.board_frame_px))
 
     def init_board(self):
         # initialize the map with all dirt

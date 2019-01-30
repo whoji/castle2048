@@ -1,12 +1,12 @@
 import math
-
+import pygame
 
 class Flags(object):
     """docstring for Flags"""
 
     def __init__(self):
         self.proj_path = '/home/whoji/Desktop/ILC_2019/2048/'
-        self.option_bg_img_path = self.proj_path + 'asset/water.png'
+        self.option_bg_img_path = self.proj_path + 'asset/stone/sand.png'
         self.debug_mod = True
 
         # colors
@@ -63,6 +63,10 @@ class Flags(object):
         self.if_movable = True
         self.move_frame = 10 # frames to finish the move
 
+        # load texture
+        self.__get_textures()
+        self.__resize_texture()
+
         # run self check
         #self.__self_check():
 
@@ -86,6 +90,56 @@ class Flags(object):
         offset_y = round((self.window_h - self.status_bar_size) / 2 - 
             self.map_rows * self.tile_size / 2)
         return offset_x, offset_y
+
+    def __get_textures(self):
+        self.textures = {
+            -1 : pygame.image.load(self.proj_path + 'asset/stone/stone_0.png'),
+            1 : pygame.image.load(self.proj_path + 'asset/stone/stone_a.png'),
+            2 : pygame.image.load(self.proj_path + 'asset/stone/stone_b.png'),
+            4 : pygame.image.load(self.proj_path + 'asset/stone/stone_1.png'),
+            8 : pygame.image.load(self.proj_path + 'asset/stone/stone_2.png'),
+            16 : pygame.image.load(self.proj_path + 'asset/stone/stone_3.png'),
+            32 : pygame.image.load(self.proj_path + 'asset/stone/stone_4.png'),
+            64 : pygame.image.load(self.proj_path + 'asset/stone/stone_5.png'),
+            128 : pygame.image.load(self.proj_path + 'asset/stone/stone_6.png'),
+            256 : pygame.image.load(self.proj_path + 'asset/stone/stone_7.png'),
+            512 : pygame.image.load(self.proj_path + 'asset/stone/stone_8.png'),
+            1024 : pygame.image.load(self.proj_path + 'asset/stone/stone_9.png'),
+            2048 : pygame.image.load(self.proj_path + 'asset/stone/stone_10.png'),
+            4096 : pygame.image.load(self.proj_path + 'asset/stone/stone_11.png'),
+            8192 : pygame.image.load(self.proj_path + 'asset/stone/stone_12.png'),
+            16384 : pygame.image.load(self.proj_path + 'asset/stone/stone_13.png'),           
+            32768 : pygame.image.load(self.proj_path + 'asset/stone/stone_14.png')       
+        }
+
+        self.castle_textures = {
+            1 : pygame.image.load(self.proj_path + 'asset/castle/castle_0.png'),
+            2 : pygame.image.load(self.proj_path + 'asset/castle/castle_0b.png'),
+            4 : pygame.image.load(self.proj_path + 'asset/castle/castle_1.png'),
+            8 : pygame.image.load(self.proj_path + 'asset/castle/castle_1b.png'),
+            16 : pygame.image.load(self.proj_path + 'asset/castle/castle_2.png'),
+            32 : pygame.image.load(self.proj_path + 'asset/castle/castle_2b.png'),
+            64 : pygame.image.load(self.proj_path + 'asset/castle/castle_3.png'),
+            128 : pygame.image.load(self.proj_path + 'asset/castle/castle_3b.png'),
+            256 : pygame.image.load(self.proj_path + 'asset/castle/castle_x0.png'),
+            512 : pygame.image.load(self.proj_path + 'asset/castle/castle_x0.png'),
+            1024 : pygame.image.load(self.proj_path + 'asset/castle/castle_x1.png'),
+            2048 : pygame.image.load(self.proj_path + 'asset/castle/castle_x1.png'),
+            4096 : pygame.image.load(self.proj_path + 'asset/castle/castle_x2.png'),
+            8192 : pygame.image.load(self.proj_path + 'asset/castle/castle_x2.png'),
+            16384 : pygame.image.load(self.proj_path + 'asset/castle/castle_x3.png'),           
+            32768 : pygame.image.load(self.proj_path + 'asset/castle/castle_x3.png')       
+        }
+
+    def __resize_texture(self):
+        for k,v in self.textures.items():
+            self.textures[k] = pygame.transform.scale(
+                self.textures[k], (self.tile_size-2*self.board_frame_px, 
+                    self.tile_size-2*self.board_frame_px))
+        for k,v in self.castle_textures.items():
+            self.castle_textures[k] = pygame.transform.scale(
+                self.castle_textures[k], (self.tile_size-2*self.board_frame_px, 
+                    self.tile_size-2*self.board_frame_px))                
 
 F = Flags()
 
