@@ -22,7 +22,8 @@ def eventkey_to_action(eventkey):
     elif eventkey in [K_UP, K_k, K_w]:
         action = 'up'
     else:
-        print("bad event key!!")
+        #print("bad event key!!")
+        pass
     return action
 
 # Starting the game components
@@ -90,18 +91,21 @@ while True:
                     sound_player.play_action_sound()
                     if_moved = board.update_board(action)
 
-                if if_moved:
-                    print("board updated !!")
-                    print(board)
-                    mover = Mover(board.prev_board, action)
-                    controller.game_status = 21
-                    status_bar.update_status()
+                    if if_moved:
+                        print("board updated !!")
+                        print(board)
+                        mover = Mover(board.prev_board, action)
+                        controller.game_status = 21
+                        status_bar.update_status()
 
-                if event.key == pygame.K_ESCAPE or event.unicode == 'q':
+                elif event.key == pygame.K_ESCAPE or event.unicode == 'q':
                     controller.quit_game()
 
-                if event.key == pygame.K_F1:
+                elif event.key == pygame.K_F1:
                     controller.call_option()
+
+                else:
+                    print("Invalid key input: <" + str(event.key) +">; Doing nothing...")
             else:
                 pass
                 #print("other event.type: " + str(event.type))
@@ -154,6 +158,8 @@ while True:
                             DISPLAYSUR.blit(board.textures[board.prev_board[row][col]], moving_tile_pos)
                         # the text (number)
                         text_obj = gen_ui.generate_block_text_obj(GFONTS, board.prev_board[row][col])
+                        if F.block_font_center:
+                            moving_tile_pos = Mover.center_text(text_obj,moving_tile_pos)
                         DISPLAYSUR.blit(text_obj,moving_tile_pos)
         else:
             controller.game_status = 2
@@ -178,8 +184,11 @@ while True:
             for col in range(F.map_rows):
                 if board.board[row][col]:
                     text_obj = gen_ui.generate_block_text_obj(FONTS=GFONTS, n=board.board[row][col])
-                    DISPLAYSUR.blit(text_obj,(col*F.tile_size+F.board_offset_x+F.board_frame_px, 
-                        row*F.tile_size+F.board_offset_y+F.board_frame_px))
+                    tile_pos = (col*F.tile_size+F.board_offset_x+F.board_frame_px, 
+                        row*F.tile_size+F.board_offset_y+F.board_frame_px)
+                    if F.block_font_center:
+                        tile_pos = Mover.center_text(text_obj, tile_pos)
+                    DISPLAYSUR.blit(text_obj, tile_pos)
 
     # render the status bar
     status_bar.render(DISPLAYSUR)

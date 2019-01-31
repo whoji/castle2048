@@ -172,4 +172,15 @@ class Mover(object):
     def get_coordinates(self):
         pass
 
+    @staticmethod
+    def center_text(text_obj, moving_tile_pos):
+        """
+        return the postion (x,y) for the centered text, (center relative to block/tile)
+        """
+        x_adj = int((F.tile_size - text_obj.get_size()[0])/2)
+        y_adj = int((F.tile_size - text_obj.get_size()[1])/2)
+        new_pos = (moving_tile_pos[0]+x_adj, moving_tile_pos[1]+y_adj)
+        return new_pos
+
+
 
