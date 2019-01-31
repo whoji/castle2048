@@ -57,10 +57,10 @@ class Controller(object):
     def show_game_over(self):
         #self.game_status = 4
         #pass
-        INVFONT = pygame.font.Font('freesansbold.ttf', 20)
-        text_obj_0 = INVFONT.render("GAME OVER: press enter to continue.", True, 
+        GFONT = pygame.font.Font('freesansbold.ttf', 20)
+        text_obj_0 = GFONT.render("GAME OVER: press enter to continue.", True, 
             F.white, None)
-        text_obj_1 = INVFONT.render("GAME OVER: press q/esc to quit.", True, 
+        text_obj_1 = GFONT.render("GAME OVER: press q/esc to quit.", True, 
             F.white, None)
         pygame.draw.rect(self.DISPLAYSUR, F.yellow, F.menu_rect)
         self.DISPLAYSUR.blit(text_obj_0,(F.menu_rect[0]+10, F.menu_rect[1]+20))
@@ -82,10 +82,10 @@ class Controller(object):
     def show_main_menu(self):
         #self.game_status = 1
         #pass
-        INVFONT = pygame.font.Font('freesansbold.ttf', 20)
-        text_obj_0 = INVFONT.render("Press <ENTER> to continue.", True, 
+        GFONT = pygame.font.Font('freesansbold.ttf', 20)
+        text_obj_0 = GFONT.render("Press <ENTER> to continue.", True, 
             F.white, None) 
-        text_obj_1 = INVFONT.render("Press <Q>/<Esc> to quit.", True, 
+        text_obj_1 = GFONT.render("Press <Q>/<Esc> to quit.", True, 
             F.white, None)
         pygame.draw.rect(self.DISPLAYSUR, F.red, F.menu_rect)
         self.DISPLAYSUR.blit(text_obj_0,(F.menu_rect[0]+10, F.menu_rect[1]+20))
@@ -109,10 +109,10 @@ class Controller(object):
         option_menu_bg = pygame.transform.scale(option_menu_bg, 
             (F.tile_size*F.map_rows-40, F.tile_size*F.map_cols-40))
 
-        INVFONT = pygame.font.Font('freesansbold.ttf', 20)
-        text_obj_0 = INVFONT.render("OPTION: press <F1> to continue.", True, 
+        GFONT = pygame.font.Font('freesansbold.ttf', 20)
+        text_obj_0 = GFONT.render("OPTION: press <F1> to continue.", True, 
             F.white, None) 
-        text_obj_1 = INVFONT.render("OPTION: press q/esc to quit.", True, 
+        text_obj_1 = GFONT.render("OPTION: press q/esc to quit.", True, 
             F.white, None)         
         
         # self.DISPLAYSUR.blit(option_menu_bg,(20, 20))
@@ -138,18 +138,21 @@ class Controller(object):
         menu_bg = pygame.transform.scale(menu_bg, 
             (F.tile_size*F.map_rows-40, F.tile_size*F.map_cols-40))
 
-        INVFONT = pygame.font.Font('freesansbold.ttf', 15)
-        text_obj_0 = INvFONT.render("CONGRATULATIONS!! YOU WON !!")
-        text_obj_1 = INVFONT.render("Press <ENTER> to continue the INF MODE.", True, 
+        INvFONT = pygame.font.Font('freesansbold.ttf', 20)
+        GFONT = pygame.font.Font('freesansbold.ttf', 15)
+        text_obj_0 = INvFONT.render("CONGRATULATIONS!! YOU WON !!", True, 
             F.white, None) 
-        text_obj_2 = INVFONT.render("Press Q/ESC to quit the game.", True, 
+        text_obj_1 = GFONT.render("Press <ENTER> to continue the INF MODE.", True, 
+            F.white, None) 
+        text_obj_2 = GFONT.render("Press Q/ESC to quit the game.", True, 
             F.white, None)         
 
         if milestone is not None:
-            text_obj_0 = INvFONT.render("MILESTONE [%d] REACHED" % milestone)
-            text_obj_1 = INVFONT.render("Press <ENTER> to continue.", True, 
+            text_obj_0 = INvFONT.render("MILESTONE [%d] REACHED" % milestone,
+                True, F.white, None)
+            text_obj_1 = GFONT.render("Press <ENTER> to continue.", True, 
                 F.white, F.black) 
-            text_obj_2 = INVFONT.render("", True, F.white, F.black) 
+            text_obj_2 = GFONT.render("", True, F.white, F.black) 
         
         # self.DISPLAYSUR.blit(menu_bg,(20, 20))
         pygame.draw.rect(self.DISPLAYSUR, F.blue, F.menu_rect)

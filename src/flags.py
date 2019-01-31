@@ -1,13 +1,16 @@
 import math
 import pygame
+from pygame.locals import *
 
 class Flags(object):
     """docstring for Flags"""
 
     def __init__(self):
+        self.game_name = 'Castle 2048'
         self.proj_path = '/home/whoji/Desktop/ILC_2019/2048/'
         self.option_bg_img_path = self.proj_path + 'asset/stone/sand.png'
         self.debug_mod = True
+        self.game_fps = 60
 
         # colors
         self.grey1 = (28,32,38)
@@ -49,6 +52,13 @@ class Flags(object):
             self.map_cols*self.tile_size+2*self.board_frame_px, 
             self.map_rows*self.tile_size+2*self.board_frame_px)
         self.init_board_blocks = 2
+        self.block_font_size = int(self.tile_size / 2)
+        self.block_font_sizes = [int(self.tile_size / 2), # for 1 digit
+            int(self.tile_size / 3), # for 2 digit
+            int(self.tile_size / 4), # for 3 digit
+            int(self.tile_size / 5) # for 4 digit
+        ]
+        self.block_font_size_perc = (1, 1, 0.9, 0.8, 0.5, 0.5, 0.5) 
 
         # star 
         self.if_star = True
@@ -69,6 +79,9 @@ class Flags(object):
         self.__get_textures()
         self.__resize_texture()
 
+        # load sound effects
+        #self.__get_sound()
+
         # run self check
         #self.__self_check():
 
@@ -84,6 +97,7 @@ class Flags(object):
                 ret = 32
             if self.map_rows == 4:
                 ret = 256
+            ret = 1024
 
         return ret
 
@@ -143,13 +157,13 @@ class Flags(object):
                 self.castle_textures[k], (self.tile_size-2*self.board_frame_px, 
                     self.tile_size-2*self.board_frame_px))
 
-    @staticmethod
-    def shorten_block_text(n):
-        if n > 1000000:
-            return str(int(n / 1000000))+"m" # e.g. 1048576 -> 1m
-        if n > 10000:
-            return str(int(n / 1000))+"k" # e.g. 16384 -> 16k
-        return str(n)
+
+    # def __get_sound(self):
+    #     self.sounds = {
+    #         'move'   : pygame.mixer.Sound(self.proj_path + 'asset/sound/Coin_1.wav'), 
+    #         'merge'  : pygame.mixer.Sound(self.proj_path + 'asset/sound/Coin_2.wav'), 
+    #         'castle' : pygame.mixer.Sound(self.proj_path + 'asset/sound/Coin_3.wav')
+    #     }
 
 F = Flags()
 

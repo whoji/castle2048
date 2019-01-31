@@ -64,3 +64,33 @@ class StatusBar(object):
         # text = font.render("You win!", True, BLACK)
         # text_rect = text.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
         # screen.blit(text, text_rect)
+
+class GenUI():
+    """docstring for ClassName"""
+    def __init__(self):
+        self.GFONTS = None
+
+    @staticmethod
+    def shorten_block_text(n):
+        if n > 1000000:
+            return str(int(n / 1000000))+"m" # e.g. 1048576 -> 1m
+        if n > 10000:
+            return str(int(n / 1000))+"k" # e.g. 16384 -> 16k
+        return str(n)
+
+    #@staticmethod
+    def generate_block_text_obj_obsolete(self, FONT, n):
+        text_str = self.shorten_block_text(n)
+        digits = len(text_str)        
+        text_obj = FONT.render(text_str, True, F.block_text_fg, F.block_text_bg)
+        text_obj_size = text_obj.get_rect().size
+        text_obj_size = [int(s*F.block_font_size_perc[digits-1]) for s in text_obj_size]
+        text_obj = pygame.transform.scale(text_obj, text_obj_size)
+        return text_obj
+
+    def generate_block_text_obj(self, FONTS, n):
+        text_str = self.shorten_block_text(n)
+        digits = len(text_str)
+        FONT = FONTS[digits-1]
+        text_obj = FONT.render(text_str, True, F.block_text_fg, F.block_text_bg)
+        return text_obj

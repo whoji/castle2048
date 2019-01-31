@@ -11,28 +11,32 @@
 
 
 ### Todo list
-
 * improve the menu
 * improve the status bar
 * improve the win condition for castle
 * implement the progression system (in option)
 * limit the action space / key intput
 * better logger system
-* lock the frame rate
-* numeral text with flexible font size (depends on block size)
 * numeral text shown in the center of the block
 * add ABOUT in game
-* add simple music
+
 
 ### Off Todo list
 * implement the moving tiles                    [done at 1/27/2019]
 * add a license                                 [done at 1/27/2019]
 * replace the assets                            [done at 1/29/2019]
+* move the textures from board to flag          [done at 1/30/2019]
+* move the block shorten logic to ui.py         [done at 1/30/2019]
+* numeral text with flexible font size          [done at 1/30/2019]
+  * (depends on block size)
+* add simple music                              [done at 1/30/2019]
+* lock the frame rate                           [done at 1/30/2019]
+
 
 ### Misc
 Some of the assets are from the `dungeon crawl 32x32 tiles` ([OGA link](http://opengameart.org/content/dungeon-crawl-32x32-tiles))
 
-### Contact
 
+### Contact
 whoji (whoji@null.net)
 

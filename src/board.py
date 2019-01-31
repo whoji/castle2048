@@ -22,6 +22,11 @@ class Board(object):
         self.if_gg = False
         self.if_win = False
 
+        # for event monitor
+        self.if_moved = False
+        self.if_merged = False
+        self.if_upgraded = False
+
         self.init_board()
         print("init board:")
         print(self)
@@ -85,6 +90,7 @@ class Board(object):
                 self.if_win = True
                 self.if_need_to_check_win = False
 
+        self.if_moved = True
         return 1
 
     @staticmethod
@@ -149,61 +155,65 @@ class Board(object):
             else:
                 return 0 
 
-    @staticmethod
-    def combine_blocks(b, action = 'up'):
+    #@staticmethod
+    def combine_blocks(self, b, action = 'up'):
         m = F.map_rows
         n = F.map_cols
         if action == 'up':
             for i in range(1,m):
                 for j in range(n):
-                    if Board.if_block_mergable(b[i][j],b[i-1][j]):
+                    if self.if_block_mergable(b[i][j],b[i-1][j]):
                         #b[i-1][j] += b[i][j]
                         #b[i][j] = 0
-                        Board.merge_block(b, (i,j), (i-1,j) )
+                        self.merge_block(b, (i,j), (i-1,j) )
         elif action == 'down':
             for i in reversed(range(m-1)):
                 for j in range(n):
-                    if Board.if_block_mergable(b[i][j],b[i+1][j]):
+                    if self.if_block_mergable(b[i][j],b[i+1][j]):
                         #b[i+1][j] += b[i][j]
                         #b[i][j] = 0                    
-                        Board.merge_block(b, (i,j), (i+1,j) )
+                        self.merge_block(b, (i,j), (i+1,j) )
         elif action == 'right':
             for i in range(m):
                 for j in reversed(range(n-1)):
-                    if Board.if_block_mergable(b[i][j],b[i][j+1]):
+                    if self.if_block_mergable(b[i][j],b[i][j+1]):
                         #b[i][j+1] += b[i][j]
                         #b[i][j] = 0
-                        Board.merge_block(b, (i,j), (i,j+1) )
+                        self.merge_block(b, (i,j), (i,j+1) )
         elif action == 'left':
             for i in range(m):
                 for j in range(1,n):
-                    if Board.if_block_mergable(b[i][j],b[i][j-1]):
+                    if self.if_block_mergable(b[i][j],b[i][j-1]):
                         #b[i][j-1] += b[i][j]
                         #b[i][j] = 0
-                        Board.merge_block(b, (i,j), (i,j-1) )                        
+                        self.merge_block(b, (i,j), (i,j-1) )                        
         else:
             raise Exception("WTF is this action: %s" % str(action))
 
         return b
 
-    @staticmethod
-    def if_block_mergable(a,b):
+    #@staticmethod
+    def if_block_mergable(self, a,b):
         '''
         a: from
         b: to
         '''
-        if a == b:
+        if a == b and a != 0:
             return True
         else:
             return False
 
-    @staticmethod
-    def merge_block(b, from_pos, to_pos):
+    #@staticmethod
+    def merge_block(self, b, from_pos, to_pos):
         if F.if_star and from_pos == F.star_pos:
             return 0
         else:
+            if to_pos == F.star_pos:
+                #print(str(from_pos) + " --> " + str(to_pos))
+                self.if_upgraded = True
             b[to_pos[0]][to_pos[1]] += b[from_pos[0]][from_pos[1]]
             b[from_pos[0]][from_pos[1]] = 0
+            self.if_merged = True
             return 1
 
     def add_to_board(self, pos, obj_type):
@@ -230,19 +240,31 @@ class Board(object):
                 j == 0 or i == m-1 or j == n-1)]
 
     def check_gg(self):
+        # first backup sound monitor
+        backup_sound_event_monitor = (self.if_moved, self.if_moved, self.if_upgraded)
         temp_board = [row[:] for row in self.board]
         for action in ['up','down','left','right']:
             Board.move_all_to_direction(temp_board, action)
-            Board.combine_blocks(temp_board, action)
+            self.combine_blocks(temp_board, action)
             if not Board.check_if_same_board(self.board, temp_board):
+                # restore from backup
+                self.if_moved, self.if_moved, self.if_upgraded = backup_sound_event_monitor
                 return False
+        # restore from backup
+        self.if_moved, self.if_moved, self.if_upgraded = backup_sound_event_monitor
         return True
 
     def check_win_condition(self):
-        for r in self.board:
-            if F.win_condition_block in r:
+        if F.if_star:
+            if self.board[F.star_pos[0]][F.star_pos[1]] == F.win_condition_block:
                 return True
+        else:
+            for r in self.board:
+                if F.win_condition_block in r:
+                    return True
         return False
 
-
-
+    def resest_event_monitor(self):
+        self.if_moved = False
+        self.if_merged = False
+        self.if_upgraded = False

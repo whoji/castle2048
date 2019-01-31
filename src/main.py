@@ -7,8 +7,9 @@ from pygame.locals import *
 from board import Board
 from flags import F
 from controller import Controller
-from ui import StatusBar
+from ui import StatusBar, GenUI
 from mover import Mover
+from sound import SoundPlayer
 
 def eventkey_to_action(eventkey):
     action = None
@@ -26,16 +27,30 @@ def eventkey_to_action(eventkey):
 
 # Starting the game components
 pygame.init()
+pygame.display.set_caption(F.game_name)
 board = Board()
 status_bar = StatusBar()
+gen_ui = GenUI()
 DISPLAYSUR = pygame.display.set_mode((F.window_w, F.window_h))
 controller = Controller(DISPLAYSUR)
+sound_player = SoundPlayer(pygame)
+clock = pygame.time.Clock()
 
-# setup a font for displaying inventory numbers
-GFONT = pygame.font.Font('freesansbold.ttf', 43)
-GFONT_GG = pygame.font.Font('freesansbold.ttf', 66)
+# setup a font for displaying block numbers
+GFONT = pygame.font.Font('freesansbold.ttf', F.block_font_size)
+GFONT_GG = pygame.font.Font('freesansbold.ttf', 66) 
+GFONTS = [
+            pygame.font.Font('freesansbold.ttf', int(F.block_font_size * F.block_font_size_perc[0])),
+            pygame.font.Font('freesansbold.ttf', int(F.block_font_size * F.block_font_size_perc[1])),
+            pygame.font.Font('freesansbold.ttf', int(F.block_font_size * F.block_font_size_perc[2])),
+            pygame.font.Font('freesansbold.ttf', int(F.block_font_size * F.block_font_size_perc[3])),
+            pygame.font.Font('freesansbold.ttf', int(F.block_font_size * F.block_font_size_perc[4])),
+            pygame.font.Font('freesansbold.ttf', int(F.block_font_size * F.block_font_size_perc[5]))
+        ]
+gen_ui.GFONTS = GFONTS
 
 while True:
+    clock.tick(F.game_fps)
 
     # ===================================
     # part 1. Game flow control
@@ -50,6 +65,7 @@ while True:
 
     # at main menu
     elif controller.game_status == 1:
+        sound_player.play_sound_effect(None, controller.game_status)        
         controller.show_main_menu()
         continue
 
@@ -71,6 +87,7 @@ while True:
             elif event.type == KEYDOWN:
                 action = eventkey_to_action(event.key)
                 if action in ['up','down','right','left']:
+                    sound_player.play_action_sound()
                     if_moved = board.update_board(action)
 
                 if if_moved:
@@ -136,8 +153,7 @@ while True:
                         else:
                             DISPLAYSUR.blit(board.textures[board.prev_board[row][col]], moving_tile_pos)
                         # the text (number)
-                        text_str = F.shorten_block_text(board.prev_board[row][col])
-                        text_obj = GFONT.render(text_str, True, F.block_text_fg, F.block_text_bg)
+                        text_obj = gen_ui.generate_block_text_obj(GFONTS, board.prev_board[row][col])
                         DISPLAYSUR.blit(text_obj,moving_tile_pos)
         else:
             controller.game_status = 2
@@ -161,8 +177,7 @@ while True:
         for row in range(F.map_cols):
             for col in range(F.map_rows):
                 if board.board[row][col]:
-                    text_str = F.shorten_block_text(board.board[row][col])
-                    text_obj = GFONT.render(text_str, True, F.block_text_fg, F.block_text_bg)
+                    text_obj = gen_ui.generate_block_text_obj(FONTS=GFONTS, n=board.board[row][col])
                     DISPLAYSUR.blit(text_obj,(col*F.tile_size+F.board_offset_x+F.board_frame_px, 
                         row*F.tile_size+F.board_offset_y+F.board_frame_px))
 
@@ -172,8 +187,16 @@ while True:
     # render the pop up window (option menu / game over / etc)
     controller.render_pop_window()
 
-
     pygame.display.update()
+
+
+    # ===================================
+    # part 3. play sound effect
+    # ===================================
+
+    sound_event_monitor = (board.if_moved, board.if_merged, board.if_upgraded)
+    sound_player.play_sound_effect(sound_event_monitor, controller.game_status)
+    board.resest_event_monitor()
 
     # ===================================
     # end of each frame
