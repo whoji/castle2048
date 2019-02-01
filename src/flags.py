@@ -19,6 +19,7 @@ class Flags(object):
         self.white = (255,255,255)
         self.red = (250,50,50)
         self.blue = (50,50,250)
+        self.blue2 = (2,39,99) # dark blue
         self.green = (50, 200, 100)
         self.yellow = (200,200,50)
         self.orange = (255, 153, 58)
@@ -60,6 +61,11 @@ class Flags(object):
             int(self.tile_size / 5) # for 4 digit
         ]
         self.block_font_size_perc = (1, 1, 0.9, 0.8, 0.5, 0.5, 0.5) 
+
+        # status bar
+        self.display_castle = True
+        self.castle_icon_px  = 30
+        self.castle_icon_gap = 1
 
         # star 
         self.if_star = True
