@@ -57,14 +57,27 @@ class Controller(object):
     def show_game_over(self):
         #self.game_status = 4
         #pass
-        GFONT = pygame.font.Font('freesansbold.ttf', 20)
-        text_obj_0 = GFONT.render("GAME OVER: press enter to continue.", True, 
-            F.white, None)
-        text_obj_1 = GFONT.render("GAME OVER: press q/esc to quit.", True, 
-            F.white, None)
-        pygame.draw.rect(self.DISPLAYSUR, F.yellow, F.menu_rect)
-        self.DISPLAYSUR.blit(text_obj_0,(F.menu_rect[0]+10, F.menu_rect[1]+20))
-        self.DISPLAYSUR.blit(text_obj_1,(F.menu_rect[0]+10, F.menu_rect[1]+70))
+        GFONT_b = pygame.font.Font('freesansbold.ttf', 100)
+        GFONT_s = pygame.font.Font('freesansbold.ttf', 25)
+
+        text_obj_0 = GFONT_b.render("GAME OVER", True, F.white, None)
+        text_obj_0_bg = GFONT_b.render("GAME OVER", True, F.red, None)
+        text_obj_1 = GFONT_s.render("Press <ENTER> to start a new game !  ", 
+            True, F.white, F.red + (255,))
+        text_obj_2 = GFONT_s.render("Press <Q> or <ESC> to quit ...  ", 
+            True, F.white, F.red + (255,))
+
+        pos_0 = (F.center_x - int(text_obj_0.get_size()[0] / 2),  F.center_y - 100)
+        pos_1 = (F.center_x - int(text_obj_1.get_size()[0] / 2),  F.center_y + 50)
+        pos_2 = (F.center_x - int(text_obj_1.get_size()[0] / 2),  F.center_y + 75)
+
+        self.DISPLAYSUR.blit(text_obj_0_bg,(pos_0[0]-3, pos_0[1])) #for outline
+        self.DISPLAYSUR.blit(text_obj_0_bg,(pos_0[0]+3, pos_0[1])) #for outline
+        self.DISPLAYSUR.blit(text_obj_0_bg,(pos_0[0], pos_0[1]-3)) #for outline
+        self.DISPLAYSUR.blit(text_obj_0_bg,(pos_0[0], pos_0[1]+3)) #for outline
+        self.DISPLAYSUR.blit(text_obj_0,pos_0)
+        self.DISPLAYSUR.blit(text_obj_1,pos_1)
+        self.DISPLAYSUR.blit(text_obj_2,pos_2)
         pygame.display.update()
 
         for event in pygame.event.get():

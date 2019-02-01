@@ -22,7 +22,6 @@ python ./src/main.py
 * better logger system
 * add ABOUT in game
 * add a SAVE/LOAD/checkpoint system
-* make GameOver screen transparent
 
 
 ### Off Todo list
@@ -37,6 +36,7 @@ python ./src/main.py
 * `[done at 1/30/2019]` lock the frame rate                          
 * `[done at 1/30/2019]` numeral text shown in the center of the block
 * `[done at 1/30/2019]` limit the action space / key intput
+* `[done at 1/31/2019]` make GameOver screen transparent
 
 
 ### Misc

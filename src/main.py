@@ -104,6 +104,12 @@ while True:
                 elif event.key == pygame.K_F1:
                     controller.call_option()
 
+                elif F.debug_mod:
+                    if event.key == pygame.K_F4: # Four for Die (si3)
+                        board.if_gg = True
+                    elif event.key == pygame.K_F5: # Five (V) for Victory
+                        board.if_win = True
+
                 else:
                     print("Invalid key input: <" + str(event.key) +">; Doing nothing...")
             else:
