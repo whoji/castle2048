@@ -66,6 +66,12 @@ class Flags(object):
         self.display_castle = True
         self.castle_icon_px  = 30
         self.castle_icon_gap = 1
+        self.big_castle_icon = True
+        if self.big_castle_icon:
+            self.castle_icon_px = 50
+            self.castle_icon_gap = 3
+            self.castle_list = [1,4,16, 64,256,1024,4096,16384]
+            
 
         # star 
         self.if_star = True

@@ -70,11 +70,14 @@ class StatusBar(object):
             x_start_pos = 200
             y_start_pos = 0
             castle_list = [v for k,v in F.castle_textures.items() if k <= self.star_score]
+            if F.big_castle_icon:
+                castle_list = [v for k,v in F.castle_textures.items() if k <= self.star_score
+                    and k in F.castle_list]
             for i, c in enumerate(castle_list):
                 cs = pygame.transform.scale(c, (F.castle_icon_px, F.castle_icon_px))
                 DISPLAYSUR.blit(cs, self.apply_offset(self.pos, (x_start_pos +
                     i*F.castle_icon_gap+i*F.castle_icon_px, y_start_pos)))
-                if i == 8:
+                if i == 8 and not  F.castle_list:
                     x_start_pos -= (8+1)*(F.castle_icon_px+F.castle_icon_gap)
                     y_start_pos = 30
 

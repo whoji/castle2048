@@ -16,7 +16,6 @@ python ./src/main.py
 
 ### Todo list
 * improve the menu
-* improve the status bar
 * improve the win condition for castle
 * implement the progression system (in option)
 * better logger system
@@ -37,6 +36,7 @@ python ./src/main.py
 * `[done at 1/30/2019]` numeral text shown in the center of the block
 * `[done at 1/30/2019]` limit the action space / key intput
 * `[done at 1/31/2019]` make GameOver screen transparent
+* `[done at 1/31/2019]` improve the status bar
 
 
 ### Misc
