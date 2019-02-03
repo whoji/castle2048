@@ -84,7 +84,7 @@ class Controller(object):
         text_obj_0_bg = GFONT_b.render("GAME OVER", True, F.red, None)
         text_obj_1 = GFONT_s.render("Press <ENTER> to start a new game !  ", 
             True, F.white, F.red + (255,))
-        text_obj_2 = GFONT_s.render("Press <Q> or <ESC> to quit ...  ", 
+        text_obj_2 = GFONT_s.render("Press <Q> to quit ...  ", 
             True, F.white, F.red + (255,))
 
         pos_0 = (F.center_x - int(text_obj_0.get_size()[0] / 2),  F.center_y - 100)
@@ -114,7 +114,8 @@ class Controller(object):
             if event.type == QUIT:
                 self.quit_game()
             elif  event.type == KEYDOWN: 
-                if event.key == pygame.K_ESCAPE or event.unicode == 'q':
+                #if event.key == pygame.K_ESCAPE or event.unicode == 'q':
+                if event.unicode == 'q':
                     self.quit_game()
                 if event.key == pygame.K_RETURN:
                     self.reset_game()
@@ -128,7 +129,7 @@ class Controller(object):
         FONT_m = pygame.font.Font('freesansbold.ttf', 20)
         FONT_l = pygame.font.Font('freesansbold.ttf', 100)
         text_obj_0 = FONT_m.render("Press <ENTER> to start", True, F.white, None) 
-        text_obj_1 = FONT_m.render("Press <Q> or <Esc> to quit.", True, F.white, None)
+        text_obj_1 = FONT_m.render("Press <Q> to quit.", True, F.white, None)
 
         #pygame.draw.rect(self.DISPLAYSUR, F.red, F.menu_rect)
         self.draw_pop_up_menu_bg_rect(F.red, size= None)
@@ -156,7 +157,8 @@ class Controller(object):
             if event.type == QUIT:
                 self.quit_game()
             elif  event.type == KEYDOWN: 
-                if event.key == pygame.K_ESCAPE or event.unicode == 'q':
+                #if event.key == pygame.K_ESCAPE or event.unicode == 'q':
+                if event.unicode == 'q':
                     self.quit_game()
                 if event.key == pygame.K_RETURN:
                     self.reset_game()
@@ -171,8 +173,8 @@ class Controller(object):
         FONT_l = pygame.font.Font('freesansbold.ttf', 65)
 
         text_obj_0 = FONT_m.render(" ", True, F.white, None) 
-        text_obj_1 = FONT_s.render("Press <F1> to resume the game.", True, F.white, None) 
-        text_obj_2 = FONT_s.render("Press <Q> or <ESC> to quit the game.", True, F.white, None)         
+        text_obj_1 = FONT_s.render("Press <F1> or <ESC> to resume the game.", True, F.white, None) 
+        text_obj_2 = FONT_s.render("Press <Q> to quit the game.", True, F.white, None)         
         text_obj_3 = FONT_s.render("Press <R> to start over the game.", True, F.white, None)         
 
         self.draw_pop_up_menu_bg_rect(F.green, size= None)
@@ -192,11 +194,11 @@ class Controller(object):
             if event.type == QUIT:
                 self.quit_game()
             elif  event.type == KEYDOWN: 
-                if event.key == pygame.K_ESCAPE or event.unicode == 'r':
+                if event.unicode == 'r':
                     self.reset_game()
-                if event.key == pygame.K_ESCAPE or event.unicode == 'q':
+                if event.unicode == 'q':
                     self.quit_game()
-                if event.key == pygame.K_F1:
+                if event.key == pygame.K_ESCAPE or event.key == pygame.K_F1:
                     self.resume_game()
             else:
                 pass
@@ -209,7 +211,7 @@ class Controller(object):
 
         text_obj_0 = FONT_m.render("CONGRATULATIONS!! YOU WON !!", True, F.white, None) 
         text_obj_1 = FONT_s.render("Press <ENTER> to continue the INFINITE mode", True, F.white, None) 
-        text_obj_2 = FONT_s.render("Press <Q> or <ESC> to quit the game.", True, F.white, None)         
+        text_obj_2 = FONT_s.render("Press <Q>to quit the game.", True, F.white, None)         
         text_obj_3 = FONT_s.render("Press <R> to start over the game.", True, F.white, None)         
 
         if milestone is not None:
@@ -236,9 +238,9 @@ class Controller(object):
             if event.type == QUIT:
                 self.quit_game()
             elif  event.type == KEYDOWN: 
-                if event.key == pygame.K_ESCAPE or event.unicode == 'r':
+                if event.unicode == 'r':
                     self.reset_game()
-                if event.key == pygame.K_ESCAPE or event.unicode == 'q':
+                if event.unicode == 'q':
                     self.quit_game()                    
                 if event.key == pygame.K_RETURN:
                     self.resume_game()

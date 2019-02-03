@@ -9,6 +9,14 @@
 ```
 python ./src/main.py
 ```
+### How to play
+* The castle is the block in the middle, your goal is to upgrade to 2048 or higher!
+* Move blocks with equal values to merge them
+* To move the blocks, use these keys: 
+  * <kbd>W</kbd> / <kbd>A</kbd> / <kbd>S</kbd> / <kbd>D</kbd>
+  * <kbd>H</kbd> / <kbd>J</kbd> / <kbd>K</kbd> / <kbd>L</kbd>
+  * <kbd>Up</kbd> / <kbd>Down</kbd> / <kbd>Left</kbd> / <kbd>Right</kbd>
+* Bring up the option menu: <kbd>F1</kbd> or <kbd>Esc</kbd>
 
 ### Changelog
 * alpha 0.10: 2019-01-27: pretty much done with all the aspects of the gameplay

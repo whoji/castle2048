@@ -98,10 +98,10 @@ while True:
                         controller.game_status = 21
                         status_bar.update_status()
 
-                elif event.key == pygame.K_ESCAPE or event.unicode == 'q':
-                    controller.quit_game()
+                #elif event.key == pygame.K_ESCAPE or event.unicode == 'q':
+                #    controller.quit_game()
 
-                elif event.key == pygame.K_F1:
+                elif event.key == pygame.K_F1 or event.key == pygame.K_ESCAPE:
                     controller.call_option()
 
                 elif F.debug_mod:
