@@ -59,7 +59,7 @@ class Controller(object):
     def draw_pop_up_menu_bg_rect(self, color, size, show_ver = True):
         menu_rect = F.menu_rect
         if size is not None:
-            menu_rect = (self.center_x-size, self.center_y-size, 2*size, 2*size)   
+            menu_rect = (F.center_x-size, F.center_y-size, 2*size, 2*size)   
         pygame.draw.rect(self.DISPLAYSUR, color, menu_rect)
         if show_ver:
             ver_str_1 = "ver."+F.game_ver
@@ -173,17 +173,23 @@ class Controller(object):
         FONT_l = pygame.font.Font('freesansbold.ttf', 65)
 
         text_obj_0 = FONT_m.render(" ", True, F.white, None) 
-        text_obj_1 = FONT_s.render("Press <F1> or <ESC> to resume the game.", True, F.white, None) 
-        text_obj_2 = FONT_s.render("Press <Q> to quit the game.", True, F.white, None)         
-        text_obj_3 = FONT_s.render("Press <R> to start over the game.", True, F.white, None)         
+        text_obj_1 = FONT_s.render("Press <F1> or <ESC> to resume the game.", True, F.white, None)
+        text_obj_2 = FONT_s.render("Press <Q> to quit the game.", True, F.white, None)
+        text_obj_3 = FONT_s.render("Press <R> to start over the game.", True, F.white, None)
+        text_obj_4 = FONT_s.render("To play: ", True, F.white, None)
+        text_obj_4a = FONT_s.render("   Arrow Key / W,A,S,D / H,J,K,L to move ", True, F.white, None)
+        text_obj_4b = FONT_s.render("   Upgrade the castle in the middle to win ", True, F.white, None)
 
         self.draw_pop_up_menu_bg_rect(F.green, size= None)
 
-        y_offset = 50
+        y_offset = 90
         self.DISPLAYSUR.blit(text_obj_0,(F.menu_rect[0]+20, F.menu_rect[1]+y_offset+20))
-        self.DISPLAYSUR.blit(text_obj_1,(F.menu_rect[0]+20, F.menu_rect[1]+y_offset+60))
-        self.DISPLAYSUR.blit(text_obj_2,(F.menu_rect[0]+20, F.menu_rect[1]+y_offset+90))
-        self.DISPLAYSUR.blit(text_obj_3,(F.menu_rect[0]+20, F.menu_rect[1]+y_offset+120))
+        self.DISPLAYSUR.blit(text_obj_1,(F.menu_rect[0]+20, F.menu_rect[1]+y_offset+20))
+        self.DISPLAYSUR.blit(text_obj_2,(F.menu_rect[0]+20, F.menu_rect[1]+y_offset+40))
+        self.DISPLAYSUR.blit(text_obj_3,(F.menu_rect[0]+20, F.menu_rect[1]+y_offset+60))
+        self.DISPLAYSUR.blit(text_obj_4,(F.menu_rect[0]+20, F.menu_rect[1]+y_offset+90))
+        self.DISPLAYSUR.blit(text_obj_4a,(F.menu_rect[0]+20, F.menu_rect[1]+y_offset+110))
+        self.DISPLAYSUR.blit(text_obj_4b,(F.menu_rect[0]+20, F.menu_rect[1]+y_offset+130))
         GenUI.draw_text_with_outline(self.DISPLAYSUR, FONT_l, "OPTION MENU", 
             F.white, F.orange, 5, (F.center_x, F.center_y-170) , if8=True, if_center=True)
         
@@ -229,7 +235,7 @@ class Controller(object):
         self.DISPLAYSUR.blit(text_obj_1,(F.menu_rect[0]+20, F.menu_rect[1]+y_offset+60))
         self.DISPLAYSUR.blit(text_obj_2,(F.menu_rect[0]+20, F.menu_rect[1]+y_offset+90))
         self.DISPLAYSUR.blit(text_obj_3,(F.menu_rect[0]+20, F.menu_rect[1]+y_offset+120))
-        GenUI.draw_text_with_outline(self.DISPLAYSUR, FONT_l, "YOU WIN !!!!", 
+        GenUI.draw_text_with_outline(self.DISPLAYSUR, FONT_l, "YOU WIN", 
             F.orange, F.red, 5, (F.center_x, F.center_y-150) , if8=True, if_center=True)
         
         pygame.display.update()

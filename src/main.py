@@ -98,8 +98,9 @@ while True:
                         controller.game_status = 21
                         status_bar.update_status()
 
-                #elif event.key == pygame.K_ESCAPE or event.unicode == 'q':
-                #    controller.quit_game()
+                # can press q to exit the game only in debug_mode
+                elif event.unicode == 'q' and F.debug_mod:
+                    controller.quit_game()
 
                 elif event.key == pygame.K_F1 or event.key == pygame.K_ESCAPE:
                     controller.call_option()

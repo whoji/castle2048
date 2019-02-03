@@ -16,7 +16,7 @@ python ./src/main.py
   * <kbd>W</kbd> / <kbd>A</kbd> / <kbd>S</kbd> / <kbd>D</kbd>
   * <kbd>H</kbd> / <kbd>J</kbd> / <kbd>K</kbd> / <kbd>L</kbd>
   * <kbd>Up</kbd> / <kbd>Down</kbd> / <kbd>Left</kbd> / <kbd>Right</kbd>
-* Bring up the option menu: <kbd>F1</kbd> or <kbd>Esc</kbd>
+* Bring up the option (help) menu: <kbd>F1</kbd> or <kbd>Esc</kbd>
 
 ### Changelog
 * alpha 0.10: 2019-01-27: pretty much done with all the aspects of the gameplay
@@ -29,7 +29,6 @@ python ./src/main.py
 * implement the tropy/achievement system
 * better logger system
 * add a SAVE/LOAD/checkpoint system
-* add in-game help
 * add ABOUT in game
 
 
@@ -48,6 +47,7 @@ python ./src/main.py
 * `[done at 1/31/2019]` make GameOver screen transparent
 * `[done at 1/31/2019]` improve the status bar
 * `[done at 2/03/2019]` improve the menu system
+* `[done at 2/03/2019]` add in-game help
 
 
 ### Misc
