@@ -15,7 +15,7 @@ python ./src/main.py
 * alpha 0.11: 2019-01-30: added sound efffect and fixed frame rate
 
 ### Todo list
-* improve the menu
+* improve the menu system
 * improve the win condition for castle
 * implement the progression system (in option)
 * better logger system

@@ -137,3 +137,28 @@ class GenUI():
         FONT = FONTS[digits-1]
         text_obj = FONT.render(text_str, True, F.block_text_fg, F.block_text_bg)
         return text_obj
+
+    @staticmethod
+    def apply_offset(pos,offset):
+        return (pos[0]+offset[0], pos[1]+offset[1])
+
+    @staticmethod
+    def draw_text_with_outline(SURF, FONT, text_str, fg_color, outline_color, 
+        outline_px, pos_0, if8=True, if_center=True):
+        text_obj_fg = FONT.render(text_str, True, fg_color, None)
+        text_obj_bg = FONT.render(text_str, True, outline_color, None)
+        if if_center:
+            pos_0 = (
+                pos_0[0] - int(text_obj_fg.get_size()[0] / 2),  
+                pos_0[1] - int(text_obj_fg.get_size()[1] / 2)
+            )
+        SURF.blit(text_obj_bg,(pos_0[0]-outline_px, pos_0[1])) #for outline
+        SURF.blit(text_obj_bg,(pos_0[0]+outline_px, pos_0[1])) #for outline
+        SURF.blit(text_obj_bg,(pos_0[0], pos_0[1]-outline_px)) #for outline
+        SURF.blit(text_obj_bg,(pos_0[0], pos_0[1]+outline_px)) #for outline
+        if if8:
+            SURF.blit(text_obj_bg,(pos_0[0]-outline_px, pos_0[1]-outline_px)) #for outline
+            SURF.blit(text_obj_bg,(pos_0[0]+outline_px, pos_0[1]-outline_px)) #for outline
+            SURF.blit(text_obj_bg,(pos_0[0]-outline_px, pos_0[1]+outline_px)) #for outline
+            SURF.blit(text_obj_bg,(pos_0[0]+outline_px, pos_0[1]+outline_px)) #for outline
+        SURF.blit(text_obj_fg, pos_0)        

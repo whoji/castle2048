@@ -8,7 +8,6 @@ class Flags(object):
     def __init__(self):
         self.game_name = 'Castle 2048'
         self.proj_path = '/home/whoji/Desktop/ILC_2019/2048/'
-        self.option_bg_img_path = self.proj_path + 'asset/stone/sand.png'
         self.debug_mod = True
         self.game_fps = 60
 
