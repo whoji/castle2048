@@ -25,6 +25,8 @@ class Controller(object):
     def __init__(self, DISPLAYSUR):
         self.game_status = 0 
         self.DISPLAYSUR = DISPLAYSUR
+        self.title_counter = 0
+        self.title_color = 0
 
     def start_application(self):
         self.game_status = 1
@@ -53,6 +55,24 @@ class Controller(object):
     def win_game(self):
         self.game_status = 6
         self.big_print("GAME FINISHED! AMAZING!")
+
+    def draw_pop_up_menu_bg_rect(self, color, size, show_ver = True):
+        menu_rect = F.menu_rect
+        if size is not None:
+            menu_rect = (self.center_x-size, self.center_y-size, 2*size, 2*size)   
+        pygame.draw.rect(self.DISPLAYSUR, color, menu_rect)
+        if show_ver:
+            ver_str_1 = "ver."+F.game_ver
+            ver_str_2 = " by whoji"
+            FONT_s = pygame.font.Font('freesansbold.ttf', 15)
+            text_obj_1 = FONT_s.render(ver_str_1, True, F.white, None)
+            text_obj_2 = FONT_s.render(ver_str_2, True, F.white, None)
+            px_pad = 5
+            pos_x = menu_rect[0] + menu_rect[2] - text_obj_1.get_size()[0] - px_pad
+            pos_y = menu_rect[1] + menu_rect[3] - text_obj_1.get_size()[1] - px_pad
+            self.DISPLAYSUR.blit(text_obj_1,(pos_x, pos_y))
+            pos_x = menu_rect[0] + menu_rect[2] - text_obj_2.get_size()[0] - px_pad
+            self.DISPLAYSUR.blit(text_obj_2,(pos_x, pos_y-text_obj_1.get_size()[1]))
 
     def show_game_over(self):
         #self.game_status = 4
@@ -105,14 +125,31 @@ class Controller(object):
     def show_main_menu(self):
         #self.game_status = 1
         #pass
-        GFONT = pygame.font.Font('freesansbold.ttf', 20)
-        text_obj_0 = GFONT.render("Press <ENTER> to continue.", True, 
-            F.white, None) 
-        text_obj_1 = GFONT.render("Press <Q>/<Esc> to quit.", True, 
-            F.white, None)
-        pygame.draw.rect(self.DISPLAYSUR, F.red, F.menu_rect)
-        self.DISPLAYSUR.blit(text_obj_0,(F.menu_rect[0]+10, F.menu_rect[1]+20))
-        self.DISPLAYSUR.blit(text_obj_1,(F.menu_rect[0]+10, F.menu_rect[1]+70))
+        FONT_m = pygame.font.Font('freesansbold.ttf', 20)
+        FONT_l = pygame.font.Font('freesansbold.ttf', 100)
+        text_obj_0 = FONT_m.render("Press <ENTER> to start", True, F.white, None) 
+        text_obj_1 = FONT_m.render("Press <Q> or <Esc> to quit.", True, F.white, None)
+
+        #pygame.draw.rect(self.DISPLAYSUR, F.red, F.menu_rect)
+        self.draw_pop_up_menu_bg_rect(F.red, size= None)
+
+        y_offset = 200
+        self.DISPLAYSUR.blit(text_obj_0,(F.menu_rect[0]+10, F.menu_rect[1]+y_offset+20))
+        self.DISPLAYSUR.blit(text_obj_1,(F.menu_rect[0]+10, F.menu_rect[1]+y_offset+50))
+
+        # Game Tile
+        fg_color = F.white
+        bg_color = F.orange
+        if F.blink_title:
+            if self.title_counter >= 10000:
+                self.title_counter = 0
+            color_idx = int(self.title_counter / F.blink_tile_fps) % 10
+            fg_color = [F.black, F.grey1, F.blue, F.red, F.white, F.green, F.blue2, F.grey2, F.yellow, F.blue][color_idx]
+            self.title_counter += 1
+
+        GenUI.draw_text_with_outline(self.DISPLAYSUR, FONT_l, "CASTLE 2048", 
+            fg_color, bg_color, 5, (F.center_x, F.center_y-100) , if8=True, if_center=True)
+        
         pygame.display.update()
 
         for event in pygame.event.get():
@@ -129,22 +166,34 @@ class Controller(object):
 
     def show_option(self):
 
-        GFONT = pygame.font.Font('freesansbold.ttf', 20)
-        text_obj_0 = GFONT.render("OPTION: press <F1> to continue.", True, 
-            F.white, None) 
-        text_obj_1 = GFONT.render("OPTION: press q/esc to quit.", True, 
-            F.white, None)         
+        FONT_s = pygame.font.Font('freesansbold.ttf', 15)
+        FONT_m = pygame.font.Font('freesansbold.ttf', 20)
+        FONT_l = pygame.font.Font('freesansbold.ttf', 65)
+
+        text_obj_0 = FONT_m.render(" ", True, F.white, None) 
+        text_obj_1 = FONT_s.render("Press <F1> to resume the game.", True, F.white, None) 
+        text_obj_2 = FONT_s.render("Press <Q> or <ESC> to quit the game.", True, F.white, None)         
+        text_obj_3 = FONT_s.render("Press <R> to start over the game.", True, F.white, None)         
+
+        self.draw_pop_up_menu_bg_rect(F.green, size= None)
+
+        y_offset = 50
+        self.DISPLAYSUR.blit(text_obj_0,(F.menu_rect[0]+20, F.menu_rect[1]+y_offset+20))
+        self.DISPLAYSUR.blit(text_obj_1,(F.menu_rect[0]+20, F.menu_rect[1]+y_offset+60))
+        self.DISPLAYSUR.blit(text_obj_2,(F.menu_rect[0]+20, F.menu_rect[1]+y_offset+90))
+        self.DISPLAYSUR.blit(text_obj_3,(F.menu_rect[0]+20, F.menu_rect[1]+y_offset+120))
+        GenUI.draw_text_with_outline(self.DISPLAYSUR, FONT_l, "OPTION MENU", 
+            F.white, F.orange, 5, (F.center_x, F.center_y-170) , if8=True, if_center=True)
         
-        # self.DISPLAYSUR.blit(option_menu_bg,(20, 20))
-        pygame.draw.rect(self.DISPLAYSUR, F.green, F.menu_rect)
-        self.DISPLAYSUR.blit(text_obj_0,(F.menu_rect[0]+20, F.menu_rect[1]+20))
-        self.DISPLAYSUR.blit(text_obj_1,(F.menu_rect[0]+20, F.menu_rect[1]+50))
         pygame.display.update()
+
 
         for event in pygame.event.get():
             if event.type == QUIT:
                 self.quit_game()
             elif  event.type == KEYDOWN: 
+                if event.key == pygame.K_ESCAPE or event.unicode == 'r':
+                    self.reset_game()
                 if event.key == pygame.K_ESCAPE or event.unicode == 'q':
                     self.quit_game()
                 if event.key == pygame.K_F1:
@@ -170,8 +219,9 @@ class Controller(object):
                 F.white, F.black) 
             text_obj_2 = GFONT.render("", True, F.white, F.black) 
         
-        # self.DISPLAYSUR.blit(menu_bg,(20, 20))
-        pygame.draw.rect(self.DISPLAYSUR, F.blue, F.menu_rect)
+        #pygame.draw.rect(self.DISPLAYSUR, F.blue, F.menu_rect)
+        self.draw_pop_up_menu_bg_rect(F.blue2, size= None)
+
         y_offset = 150
         self.DISPLAYSUR.blit(text_obj_0,(F.menu_rect[0]+20, F.menu_rect[1]+y_offset+20))
         self.DISPLAYSUR.blit(text_obj_1,(F.menu_rect[0]+20, F.menu_rect[1]+y_offset+60))

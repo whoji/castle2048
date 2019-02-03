@@ -13,14 +13,16 @@ python ./src/main.py
 ### Changelog
 * alpha 0.10: 2019-01-27: pretty much done with all the aspects of the gameplay
 * alpha 0.11: 2019-01-30: added sound efffect and fixed frame rate
+* alpha 0.12: 2019-02-02: better menu ui
 
 ### Todo list
-* improve the menu system
 * improve the win condition for castle
 * implement the progression system (in option)
+* implement the tropy/achievement system
 * better logger system
-* add ABOUT in game
 * add a SAVE/LOAD/checkpoint system
+* add in-game help
+* add ABOUT in game
 
 
 ### Off Todo list
@@ -37,6 +39,7 @@ python ./src/main.py
 * `[done at 1/30/2019]` limit the action space / key intput
 * `[done at 1/31/2019]` make GameOver screen transparent
 * `[done at 1/31/2019]` improve the status bar
+* `[done at 2/03/2019]` improve the menu system
 
 
 ### Misc

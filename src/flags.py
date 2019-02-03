@@ -7,6 +7,7 @@ class Flags(object):
 
     def __init__(self):
         self.game_name = 'Castle 2048'
+        self.game_ver = '0.12.apha.190203'
         self.proj_path = '/home/whoji/Desktop/ILC_2019/2048/'
         self.debug_mod = True
         self.game_fps = 60
@@ -40,6 +41,8 @@ class Flags(object):
             self.map_cols*self.tile_size-100, self.map_rows*self.tile_size-100)
         self.center_x  = round(self.window_w / 2)
         self.center_y  = round((self.window_h) / 2)
+        self.blink_title = True
+        self.blink_tile_fps = 20 # every 10 frames will change color
 
         # size and pos conf (board)
         self.board_color = self.grey1
