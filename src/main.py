@@ -10,6 +10,7 @@ from controller import Controller
 from ui import StatusBar, GenUI
 from mover import Mover
 from sound import SoundPlayer
+from trophy import Trophy
 
 def eventkey_to_action(eventkey):
     action = None
@@ -33,7 +34,8 @@ board = Board()
 status_bar = StatusBar()
 gen_ui = GenUI()
 DISPLAYSUR = pygame.display.set_mode((F.window_w, F.window_h))
-controller = Controller(DISPLAYSUR)
+trophy = Trophy()
+controller = Controller(DISPLAYSUR, trophy)
 sound_player = SoundPlayer(pygame)
 clock = pygame.time.Clock()
 
@@ -213,6 +215,16 @@ while True:
     sound_event_monitor = (board.if_moved, board.if_merged, board.if_upgraded)
     sound_player.play_sound_effect(sound_event_monitor, controller.game_status)
     board.resest_event_monitor()
+
+
+    # ===================================
+    # part 4. handle trophy
+    # ===================================
+
+    if F.if_star:
+        trophy_name = "c"+str(status_bar.star_score)
+        if trophy_name in trophy.trophy_dict and not trophy.trophy_dict[trophy_name]:
+            trophy.trigger(trophy_name)
 
     # ===================================
     # end of each frame

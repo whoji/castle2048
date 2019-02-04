@@ -9,7 +9,8 @@ class Flags(object):
         self.game_name = 'Castle 2048'
         self.game_ver = '0.12.apha.190203'
         self.proj_path = '/home/whoji/Desktop/ILC_2019/2048/'
-        self.debug_mod = True
+        self.save_path = './save/'
+        self.debug_mod = False
         self.game_fps = 60
 
         # colors
@@ -106,7 +107,8 @@ class Flags(object):
 
     def __calculate_win_block(self):
         ret = 2 ** (int(math.sqrt(self.map_rows * self.map_cols))*3 - 1)
-        
+        ret = 2048
+
         if self.debug_mod:
             if self.map_rows == 3:
                 ret = 32
@@ -155,11 +157,11 @@ class Flags(object):
             256 : pygame.image.load(self.proj_path + 'asset/castle/castle_x0.png'),
             512 : pygame.image.load(self.proj_path + 'asset/castle/castle_x0.png'),
             1024 : pygame.image.load(self.proj_path + 'asset/castle/castle_x1.png'),
-            2048 : pygame.image.load(self.proj_path + 'asset/castle/castle_x1.png'),
-            4096 : pygame.image.load(self.proj_path + 'asset/castle/castle_x2.png'),
-            8192 : pygame.image.load(self.proj_path + 'asset/castle/castle_x2.png'),
-            16384 : pygame.image.load(self.proj_path + 'asset/castle/castle_x3.png'),           
-            32768 : pygame.image.load(self.proj_path + 'asset/castle/castle_x3.png')       
+            2048 : pygame.image.load(self.proj_path + 'asset/castle/castle_x2.png'),
+            4096 : pygame.image.load(self.proj_path + 'asset/castle/castle_x3.png'),
+            8192 : pygame.image.load(self.proj_path + 'asset/castle/castle_x4.png'),
+            16384 : pygame.image.load(self.proj_path + 'asset/castle/castle_x5.png'),           
+            32768 : pygame.image.load(self.proj_path + 'asset/castle/castle_x6.png')       
         }
 
     def __resize_texture(self):

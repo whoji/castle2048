@@ -81,8 +81,6 @@ class StatusBar(object):
                     x_start_pos -= (8+1)*(F.castle_icon_px+F.castle_icon_gap)
                     y_start_pos = 30
 
-
-
         # if F.if_star:
         #     self.milestone_str = '* '*  (F.milestone.index(self.star_score)+1)
         #     text_obj_1 = GFONT.render("castle:[ %d ]     top casle:[ %d ]    %s" % 

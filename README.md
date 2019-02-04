@@ -26,9 +26,8 @@ python ./src/main.py
 ### Todo list
 * improve the win condition for castle
 * implement the progression system (in option)
-* implement the tropy/achievement system
 * better logger system
-* add a SAVE/LOAD/checkpoint system
+* `[partially implemented]` add a SAVE/LOAD/checkpoint system
 * add ABOUT in game
 
 
@@ -48,6 +47,7 @@ python ./src/main.py
 * `[done at 1/31/2019]` improve the status bar
 * `[done at 2/03/2019]` improve the menu system
 * `[done at 2/03/2019]` add in-game help
+* `[done at 2/03/2019]` implement the tropy/achievement system
 
 
 ### Misc
