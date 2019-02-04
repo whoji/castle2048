@@ -22,11 +22,12 @@ class Controller(object):
         6: 'game_beat'
     }
 
-    def __init__(self, DISPLAYSUR):
+    def __init__(self, DISPLAYSUR, trophy):
         self.game_status = 0 
         self.DISPLAYSUR = DISPLAYSUR
         self.title_counter = 0
         self.title_color = 0
+        self.trophy = trophy
 
     def start_application(self):
         self.game_status = 1
@@ -193,6 +194,12 @@ class Controller(object):
         GenUI.draw_text_with_outline(self.DISPLAYSUR, FONT_l, "OPTION MENU", 
             F.white, F.orange, 5, (F.center_x, F.center_y-170) , if8=True, if_center=True)
         
+        # draw the trophies
+        text_obj_5 = FONT_s.render("Achievements", True, F.white, None)
+        self.DISPLAYSUR.blit(text_obj_5,(F.menu_rect[0]+20, F.menu_rect[1]+y_offset+165)) 
+        trophy_pos = (F.menu_rect[0]+40, F.menu_rect[1]+y_offset+185, 300, 100)
+        self.trophy.draw_trophy(self.DISPLAYSUR, trophy_pos)
+
         pygame.display.update()
 
 
