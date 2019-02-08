@@ -31,8 +31,7 @@ python ./src/main.py
 * `[partially implemented]` add a SAVE/LOAD/checkpoint system
 * add ABOUT in game
 * add top score / casle int othe SAVE/LOAD
-* add screenshot into the readme
-* git tag and release
+* [high priority] fixed the trophy bug (two 512 icons)
 
 
 ### Off Todo list
@@ -52,6 +51,8 @@ python ./src/main.py
 * `[done at 2/03/2019]` improve the menu system
 * `[done at 2/03/2019]` add in-game help
 * `[done at 2/03/2019]` implement the tropy/achievement system
+* `[done at 2/07/2019]` add screenshot into the readme
+* `[done at 2/07/2019]` git tag and release
 
 
 ### Misc
