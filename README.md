@@ -30,6 +30,9 @@ python ./src/main.py
 * better logger system
 * `[partially implemented]` add a SAVE/LOAD/checkpoint system
 * add ABOUT in game
+* add top score / casle int othe SAVE/LOAD
+* add screenshot into the readme
+* git tag and release
 
 
 ### Off Todo list
@@ -54,7 +57,15 @@ python ./src/main.py
 ### Misc
 Some of the assets are from the `dungeon crawl 32x32 tiles` ([OGA link](http://opengameart.org/content/dungeon-crawl-32x32-tiles))
 
-
 ### Contact
 whoji (whoji@null.net)
 
+### Screenshots
+
+* Main menu:
+
+![](./asset/screenshot/screenshot_0.png "main menu")
+
+* Game view: 
+
+![](./asset/screenshot/screenshot_1.png "game view")
