@@ -7,7 +7,7 @@ class Flags(object):
 
     def __init__(self):
         self.game_name = 'Castle 2048'
-        self.game_ver = '0.12.apha.190203'
+        self.game_ver = '0.13.apha.190203'
         self.proj_path = '/home/whoji/Desktop/ILC_2019/2048/'
         self.save_path = './save/'
         self.debug_mod = False
